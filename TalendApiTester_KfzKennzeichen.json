@@ -1,0 +1,46 @@
+{
+  "version": 6,
+  "entities": [
+    {
+      "entity": {
+        "type": "Project",
+        "id": "1eb9ac43-94d1-4c34-8a65-b1d958bc265e",
+        "name": "KfzKennzeichen"
+      },
+      "children": [
+        {
+          "entity": {
+            "type": "Request",
+            "method": {
+              "link": "http://tools.ietf.org/html/rfc7231#section-4.3.1",
+              "name": "GET"
+            },
+            "body": {
+              "formBody": {
+                "overrideContentType": true,
+                "encoding": "application/x-www-form-urlencoded",
+                "items": []
+              },
+              "bodyType": "Text"
+            },
+            "uri": {
+              "query": {
+                "delimiter": "&",
+                "items": []
+              },
+              "scheme": {
+                "name": "http",
+                "version": "V11"
+              },
+              "host": "localhost:8080",
+              "path": "/unterscheidungszeichen/v1/suchen/HD"
+            },
+            "id": "4d830374-e43b-4920-b09d-330ffd6912d9",
+            "name": "Abfrage \"HD\"",
+            "headers": []
+          }
+        }
+      ]
+    }
+  ]
+}
