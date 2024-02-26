@@ -27,6 +27,14 @@ export default function uzRoutenRegistrieren(app) {
     logger.info(`Route registriert: GET ${routeSuche}`);
 };
 
+// Leeres Unterscheidungszeichen-Objekt für Fehlerfälle
+const unterscheidungszeichenLeer = new UnterscheidungszeichenIntern("", "", "");
+
+
+const HTTP_STATUS_CODE_OK          = 200;
+const HTTP_STATUS_CODE_NOT_FOUND   = 404;
+const HTTP_STATUS_CODE_BAD_REQUEST = 400;
+
 
 /**
  * REST-Endpunkt zur Abfrage von Unterscheidungszeichen.
@@ -41,25 +49,33 @@ async function suchen(req, res) {
     const pfadParameter = req.params.uz;
     const suchString    = pfadParameter.toUpperCase().trim();
 
+    if (suchString.length > 3) {
+
+        const ergebnisErfolglos = new RestErgebnis( false,
+                                                    `Unterscheidungszeichen \"${suchString}\" zu lang!`,
+                                                    unterscheidungszeichenLeer );
+        res.status(HTTP_STATUS_CODE_BAD_REQUEST)
+           .send(ergebnisErfolglos);
+
+        return;
+    }
+
     const result = uzService.suchen( suchString );
 
     if (result === null) {
 
-        const uzLeer = new UnterscheidungszeichenIntern("", "", "");
-
         const ergebnisErfolglos = new RestErgebnis( false,
                                                     `Unterscheidungszeichen \"${suchString}\" nicht gefunden.`,
-                                                    uzLeer );
-        res.send(ergebnisErfolglos);
-        res.status(404);
+                                                    unterscheidungszeichenLeer );
+        res.send(ergebnisErfolglos)
+           .status(HTTP_STATUS_CODE_NOT_FOUND);
 
     } else {
 
         const ergebnisErfolg = new RestErgebnis( true,
-                                                 "Unterscheidungszeichen konnte aufgelöst werden",
+                                                 `Unterscheidungszeichen "${pfadParameter}" konnte aufgelöst werden.`,
                                                  result );
-
-        res.status(200);
-        res.send(ergebnisErfolg);
+        res.status(HTTP_STATUS_CODE_OK)
+           .send(ergebnisErfolg);
     }
 }

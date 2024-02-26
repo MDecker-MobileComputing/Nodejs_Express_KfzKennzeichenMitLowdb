@@ -49,12 +49,18 @@ const db      = await JSONFilePreset(dbDatei, anfangsDaten);
 const anzahlDatensaetze = Object.keys( db.data ).length;
 logger.info(`Datenbank \"${dbDatei}\" geladen mit ${anzahlDatensaetze} Datensätzen.`);
 
+await db.write();
+
 
 /**
+ * Auf Datenbank nach Unterscheidungszeichen suchen.
  *
  * @param {string} suchString Such-String für Unterscheidungszeichen (z.B. "KA"), muss
- *                            schon normalisiert sein
- * @returns
+ *                            schon auf Großbuchstaben normalisiert und getrimmt sein
+ *
+ * @returns {object} Ergebnis der Suche oder `undefined`, wenn nichts gefunden wurde;
+ *                   Im Erfolgsfall ein Objekt mit Attributen `bedeutung` und `kategorie`
+ *                   zurückgegeben.
  */
 function suche(suchString) {
 
