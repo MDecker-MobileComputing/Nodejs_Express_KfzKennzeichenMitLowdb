@@ -5,7 +5,7 @@
 import { JSONFilePreset } from 'lowdb/node';
 import logging from "logging";
 
-import { UnterscheidungszeichenResult } from './Unterscheidungszeichen.model.js';
+import { UnterscheidungszeichenIntern } from './UnterscheidungszeichenIntern.model.js';
 
 
 const logger = logging.default("datenbank");
@@ -46,6 +46,7 @@ logger.info(`Datenbank \"${dbDatei}\" geladen mit ${anzahlDatensaetze} Datensät
  * Funktion mit Business-Logik zum Suchen von Unterscheidungszeichen.
  *
  * @param {*} unterscheidungszeichen, das zu suchen ist (z.B. "KA")
+ *
  * @returns {UnterscheidungszeichenResult} Ergebnis der Suche oder `null`,
  *          wenn nichts gefunden wurde.
  */
@@ -56,16 +57,17 @@ function suchen(unterscheidungszeichen) {
 
     if (dbErgebnis === undefined) {
 
-        logger.info(`Kein Unterscheidungszeichen für Such-String \"${uzNormalisiert}\" gefunden.`);
+        logger.info(`Kein Unterscheidungszeichen für \"${uzNormalisiert}\" gefunden.`);
         return null;
 
     } else {
 
-        const ergebnis = new UnterscheidungszeichenResult( uzNormalisiert,
+        const ergebnis = new UnterscheidungszeichenIntern( uzNormalisiert,
                                                            dbErgebnis.bedeutung,
                                                            dbErgebnis.kategorie );
 
-        logger.info(`Unterscheidungszeichen \"${uzNormalisiert}\" aufgelöst: ${ergebnis.bedeutung}`);
+        logger.info(`Unterscheidungszeichen \"${uzNormalisiert}\" aufgelöst: ` +
+                    ergebnis.bedeutung + ` (${ergebnis.kategorie})` );
 
         return ergebnis;
     }

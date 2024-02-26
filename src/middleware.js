@@ -13,8 +13,10 @@ const logger = logging.default("request");
  * GET /unterscheidungszeichen/v1/suchen/KA
  * ```
  *
- * @param {*} req Request-Objekt
+ * @param {*} req Request-Objekt, aus dem HTTP-Verb und Pfad gelesen werden
+ *
  * @param {*} res Response-Objekt (wird nicht verwendet)
+ *
  * @param {*} next Funktion, um nächste Middleware-Funktion aufzurufen
  */
 export function middlewareLogger(req, res, next) {

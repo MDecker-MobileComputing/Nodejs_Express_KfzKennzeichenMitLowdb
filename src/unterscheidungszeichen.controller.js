@@ -28,8 +28,8 @@ export default function uzRoutenRegistrieren(app) {
  * REST-Endpunkt zur Abfrage von Unterscheidungszeichen.
  *
  * @param {*} req Request-Objekt, zum Auslesen von Pfad-Parameter
+ *
  * @param {*} res Response-Objekt
- * @returns
  */
 async function suchen(req, res) {
 
