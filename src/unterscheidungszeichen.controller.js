@@ -1,4 +1,5 @@
 import logging from "logging";
+import {uzService} from "./unterscheidungszeichen.service.js";
 
 export const logger = logging.default("uz-controller");
 
