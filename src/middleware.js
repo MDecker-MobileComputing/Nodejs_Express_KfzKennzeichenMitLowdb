@@ -1,6 +1,7 @@
 import logging from "logging";
 
-const logger = logging.default("request");
+const logger = logging.default("http-anfrage");
+
 
 /**
  * Diese Middleware-Funktion schreibt für jeden HTTP-Request eine Zeile

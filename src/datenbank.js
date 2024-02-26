@@ -5,8 +5,6 @@
 import { JSONFilePreset } from 'lowdb/node';
 import logging from "logging";
 
-import { UnterscheidungszeichenIntern } from './UnterscheidungszeichenIntern.model.js';
-
 
 const logger = logging.default("datenbank");
 
@@ -43,8 +41,8 @@ const anfangsDaten =  {
     }
 };
 
-const dbDatei = "db.json";
-const db      = await JSONFilePreset(dbDatei, anfangsDaten);
+const dbDateiName = "db.json"; // diese Datei in .gitignore aufnehmen
+const db          = await JSONFilePreset( dbDateiName, anfangsDaten );
 
 const anzahlDatensaetze = Object.keys( db.data ).length;
 logger.info(`Datenbank \"${dbDatei}\" geladen mit ${anzahlDatensaetze} Datensätzen.`);
@@ -66,6 +64,7 @@ function suche(suchString) {
 
     return db.data[ suchString ];
 }
+
 
 /*
  * Funktionen als Attribute von Objekt `datenbank` exportieren
