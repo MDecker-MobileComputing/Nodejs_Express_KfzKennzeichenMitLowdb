@@ -13,6 +13,8 @@ const app    = express();
 app.use(middlewareLogger);
 uzRoutenRegistrieren(app);
 
+logger.info("Web-Server konfiguriert.\n");
+
 
 // Server starten
 const PORT_NUMMER = 8080;

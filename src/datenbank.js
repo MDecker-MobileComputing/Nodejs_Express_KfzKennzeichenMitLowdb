@@ -45,7 +45,7 @@ const dbDateiName = "db.json"; // diese Datei in .gitignore aufnehmen
 const db          = await JSONFilePreset( dbDateiName, anfangsDaten );
 
 const anzahlDatensaetze = Object.keys( db.data ).length;
-logger.info(`Datenbank \"${dbDatei}\" geladen mit ${anzahlDatensaetze} Datensätzen.`);
+logger.info(`Datenbank \"${dbDateiName}\" geladen mit ${anzahlDatensaetze} Datensätzen.`);
 
 await db.write();
 
