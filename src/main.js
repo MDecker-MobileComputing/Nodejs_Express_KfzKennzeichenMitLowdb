@@ -1,12 +1,11 @@
 import express from "express";
 import logging from "logging";
 
-export const logger = logging.default("main");
-
 import uzRoutenRegistrieren from "./unterscheidungszeichen.controller.js";
 
 
-const app = express();
+const logger = logging.default("main");
+const app    = express();
 
 uzRoutenRegistrieren(app);
 
