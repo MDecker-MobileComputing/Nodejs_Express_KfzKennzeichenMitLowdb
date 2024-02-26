@@ -33,10 +33,18 @@ const anfangsDaten =  {
         "bedeutung": "Heidelberg",
         "kategorie": "BW"
     },
-
+    "X": {
+        "bedeutung": "Nato",
+        "kategorie": "MIL"
+    },
+    "Y": {
+        "bedeutung": "Bundeswehr",
+        "kategorie": "MIL"
+    }
 };
+
 const dbDatei = "db.json";
-const db = await JSONFilePreset(dbDatei, anfangsDaten);
+const db      = await JSONFilePreset(dbDatei, anfangsDaten);
 
 const anzahlDatensaetze = Object.keys( db.data ).length;
 logger.info(`Datenbank \"${dbDatei}\" geladen mit ${anzahlDatensaetze} Datensätzen.`);
@@ -47,13 +55,13 @@ logger.info(`Datenbank \"${dbDatei}\" geladen mit ${anzahlDatensaetze} Datensät
  *
  * @param {*} unterscheidungszeichen, das zu suchen ist (z.B. "KA")
  *
- * @returns {UnterscheidungszeichenResult} Ergebnis der Suche oder `null`,
+ * @returns {UnterscheidungszeichenIntern} Ergebnis der Suche oder `null`,
  *          wenn nichts gefunden wurde.
  */
 function suchen(unterscheidungszeichen) {
 
     const uzNormalisiert = unterscheidungszeichen.toUpperCase().trim();
-    const dbErgebnis     = db.data[uzNormalisiert];
+    const dbErgebnis     = db.data[ uzNormalisiert ];
 
     if (dbErgebnis === undefined) {
 

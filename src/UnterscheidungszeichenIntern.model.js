@@ -1,9 +1,15 @@
 /**
  * Klasse um Ergebgnis einer Unterscheidungszeichen-Abfrage zu repräsentieren.
+ * <br><br>
+ *
+ * Eine Instanz dieser Klasse darf nicht direkt in serialisierter Form an den
+ * Client zurückgegeben werden, sondern muss in ein `RestErgebnis`-Objekt
+ * verpackt werden.
  */
 export class UnterscheidungszeichenIntern {
 
     /**
+     * Objekt mit Unterscheidungszeichen-Information erzeugen.
      *
      * @param {string} bedeutung Unterscheidungszeichen, z.B. "Karlsruhe"
      *

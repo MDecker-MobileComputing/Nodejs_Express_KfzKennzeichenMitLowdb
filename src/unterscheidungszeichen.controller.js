@@ -2,8 +2,12 @@
  * Diese Controller-Klasse enthält die REST-Endpunkte.
  */
 
-import logging from "logging";
+import logging     from "logging";
 import {uzService} from "./unterscheidungszeichen.service.js";
+
+import { UnterscheidungszeichenIntern } from './UnterscheidungszeichenIntern.model.js';
+import { RestErgebnis }                 from './RestErgebnis.model.js';
+
 
 export const logger = logging.default("uz-controller");
 
@@ -29,7 +33,8 @@ export default function uzRoutenRegistrieren(app) {
  *
  * @param {*} req Request-Objekt, zum Auslesen von Pfad-Parameter
  *
- * @param {*} res Response-Objekt
+ * @param {*} res Response-Objekt in das HTTP-Status-Code und Payload
+ *                (Body) geschrieben werden.
  */
 async function suchen(req, res) {
 
@@ -40,12 +45,21 @@ async function suchen(req, res) {
 
     if (result === null) {
 
+        const uzLeer = new UnterscheidungszeichenIntern("", "", "");
+
+        const ergebnisErfolglos = new RestErgebnis( false,
+                                                    `Unterscheidungszeichen \"${suchString}\" nicht gefunden.`,
+                                                    uzLeer );
+        res.send(ergebnisErfolglos);
         res.status(404);
-        res.send("Nicht gefunden");
 
     } else {
 
+        const ergebnisErfolg = new RestErgebnis( true,
+                                                 "Unterscheidungszeichen konnte aufgelöst werden",
+                                                 result );
+
         res.status(200);
-        res.send(result);
+        res.send(ergebnisErfolg);
     }
 }
