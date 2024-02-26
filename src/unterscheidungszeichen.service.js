@@ -1,9 +1,16 @@
-import { JSONFilePreset } from 'lowdb/node';
+/**
+ * Diese Service-Klasse enthält die Business-Logik.
+ */
 
+import { JSONFilePreset } from 'lowdb/node';
 import logging from "logging";
+
+import { UnterscheidungszeichenResult } from './Unterscheidungszeichen.model.js';
+
 
 const logger = logging.default("datenbank");
 
+// Datenbank initialisieren
 const anfangsDaten =  {
 
     "B": {
@@ -28,24 +35,46 @@ const anfangsDaten =  {
     },
 
 };
-const db = await JSONFilePreset("db.json", anfangsDaten);
-
+const dbDatei = "db.json";
+const db = await JSONFilePreset(dbDatei, anfangsDaten);
 
 const anzahlDatensaetze = Object.keys( db.data ).length;
-logger.info(`Datenbank geladen mit ${anzahlDatensaetze} Datensätzen.`);
+logger.info(`Datenbank \"${dbDatei}\" geladen mit ${anzahlDatensaetze} Datensätzen.`);
 
 
+/**
+ * Funktion mit Business-Logik zum Suchen von Unterscheidungszeichen.
+ *
+ * @param {*} unterscheidungszeichen, das zu suchen ist (z.B. "KA")
+ * @returns {UnterscheidungszeichenResult} Ergebnis der Suche oder `null`,
+ *          wenn nichts gefunden wurde.
+ */
 function suchen(unterscheidungszeichen) {
 
     const uzNormalisiert = unterscheidungszeichen.toUpperCase().trim();
-    const ergebnis = db.get(uzNormalisiert).value();
+    const dbErgebnis     = db.data[uzNormalisiert];
 
-    logger.info(`Anfrage nach ${uzNormalisiert} ergab ${JSON.stringify(ergebnis)}`);
+    if (dbErgebnis === undefined) {
 
-    return ergebnis
+        logger.info(`Kein Unterscheidungszeichen für Such-String \"${uzNormalisiert}\" gefunden.`);
+        return null;
+
+    } else {
+
+        const ergebnis = new UnterscheidungszeichenResult( uzNormalisiert,
+                                                           dbErgebnis.bedeutung,
+                                                           dbErgebnis.kategorie );
+
+        logger.info(`Unterscheidungszeichen \"${uzNormalisiert}\" aufgelöst: ${ergebnis.bedeutung}`);
+
+        return ergebnis;
+    }
 }
 
 
+/*
+ * Funktionen als Attribute von Objekt `uzService` exportieren
+ */
 export const uzService = {
     suchen
 };
