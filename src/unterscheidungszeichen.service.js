@@ -2,52 +2,15 @@
  * Diese Service-Klasse enthält die Business-Logik.
  */
 
-import { JSONFilePreset } from 'lowdb/node';
+
 import logging from "logging";
 
 import { UnterscheidungszeichenIntern } from './UnterscheidungszeichenIntern.model.js';
+import { datenbank } from './datenbank.js';
 
 
-const logger = logging.default("datenbank");
+const logger = logging.default("uz-service");
 
-// Datenbank initialisieren
-const anfangsDaten =  {
-
-    "B": {
-        "bedeutung": "Berlin",
-        "kategorie": "B"
-    },
-    "BA": {
-        "bedeutung": "Bamberg",
-        "kategorie": "BY"
-    },
-    "BAD": {
-        "bedeutung": "Baden-Baden",
-        "kategorie": "BW"
-    },
-    "KA": {
-        "bedeutung": "Karlsruhe",
-        "kategorie": "BW"
-    },
-    "HD": {
-        "bedeutung": "Heidelberg",
-        "kategorie": "BW"
-    },
-    "X": {
-        "bedeutung": "Nato",
-        "kategorie": "MIL"
-    },
-    "Y": {
-        "bedeutung": "Bundeswehr",
-        "kategorie": "MIL"
-    }
-};
-
-const dbDatei = "db.json";
-const db      = await JSONFilePreset(dbDatei, anfangsDaten);
-
-const anzahlDatensaetze = Object.keys( db.data ).length;
-logger.info(`Datenbank \"${dbDatei}\" geladen mit ${anzahlDatensaetze} Datensätzen.`);
 
 
 /**
@@ -61,8 +24,8 @@ logger.info(`Datenbank \"${dbDatei}\" geladen mit ${anzahlDatensaetze} Datensät
 function suchen(unterscheidungszeichen) {
 
     const uzNormalisiert = unterscheidungszeichen.toUpperCase().trim();
-    const dbErgebnis     = db.data[ uzNormalisiert ];
 
+    const dbErgebnis = datenbank.suche(uzNormalisiert);
     if (dbErgebnis === undefined) {
 
         logger.info(`Kein Unterscheidungszeichen für \"${uzNormalisiert}\" gefunden.`);
@@ -82,9 +45,23 @@ function suchen(unterscheidungszeichen) {
 }
 
 
+/**
+ * Neues Unterscheidungszeichen in Datenbank anlegen.
+ *
+ * @param {UnterscheidungszeichenIntern} unterscheidungszeichen Infos
+ */
+function anlegen(unterscheidungszeichen) {
+
+
+}
+
+
+
 /*
  * Funktionen als Attribute von Objekt `uzService` exportieren
  */
 export const uzService = {
-    suchen
+
+    suchen,
+    anlegen
 };
