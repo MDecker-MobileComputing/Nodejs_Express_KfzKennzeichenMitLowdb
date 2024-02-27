@@ -29,7 +29,7 @@ export default function uzRoutenRegistrieren(app) {
     logger.info(`Route registriert: GET  ${routeSuche}`);
 
     const routeNeu = `${prefixFuerRouten}/${uzCollection}`;
-    app.post( routeNeu, middlewareNeuValidator, neu );
+    app.post( routeNeu, [ middlewareNeuNormalisierung, middlewareNeuValidator ], neu );
     logger.info(`Route registriert: POST ${routeNeu}`);
 };
 
@@ -96,7 +96,7 @@ function middlewareNeuNormalisierung(req, res, next) {
 
     if (req.body.unterscheidungszeichen) {
 
-        req.body.unterscheidungszeichen = req.body.unterscheidungszeichen.toUpperCase().trim();
+        req.body.unterscheidungszeichen = req.body.unterscheidungszeichen.trim().toUpperCase();
     }
 
     if (req.body.bedeutung) {
@@ -106,11 +106,12 @@ function middlewareNeuNormalisierung(req, res, next) {
 
     if (req.body.kategorie) {
 
-        req.body.kategorie = req.body.kategorie.trim();
+        req.body.kategorie = req.body.kategorie.trim().toUpperCase();
     }
 
     next();
 }
+
 
 /**
  * Middleware-Funktion für Route zum Anlegen eines neuen Unterscheidungszeichens.
@@ -126,7 +127,7 @@ function middlewareNeuValidator(req, res, next) {
     let ergebnisErfolglos = null
 
     const uz = req.body.unterscheidungszeichen;
-    if (!uz) {
+    if (uz === undefined)  {
 
         ergebnisErfolglos = new RestErgebnis( false,
                                               "Attribut 'uz' fehlt im JSON-Body.",
@@ -137,7 +138,7 @@ function middlewareNeuValidator(req, res, next) {
     }
 
     const bedeutung = req.body.bedeutung;
-    if (!bedeutung) {
+    if (bedeutung === undefined) {
 
         ergebnisErfolglos = new RestErgebnis( false,
                                               "Attribut 'bedeutung' fehlt im JSON-Body.",
@@ -148,7 +149,7 @@ function middlewareNeuValidator(req, res, next) {
     }
 
     const kategorie = req.body.kategorie;
-    if (!kategorie) {
+    if (kategorie === undefined) {
 
         ergebnisErfolglos = new RestErgebnis( false,
                                               "Attribut 'kategorie' fehlt im JSON-Body.",
