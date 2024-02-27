@@ -10,6 +10,7 @@ const app    = express();
 
 
 // HTTP konfigurieren
+app.use( express.json() );
 app.use(middlewareLogger);
 uzRoutenRegistrieren(app);
 

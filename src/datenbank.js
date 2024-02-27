@@ -45,7 +45,7 @@ const dbDateiName = "db.json"; // diese Datei in .gitignore aufnehmen
 const db          = await JSONFilePreset( dbDateiName, anfangsDaten );
 
 const anzahlDatensaetze = Object.keys( db.data ).length;
-logger.info(`Datenbank \"${dbDateiName}\" geladen mit ${anzahlDatensaetze} Datensätzen.`);
+logger.info(`Datenbank-Datei \"${dbDateiName}\" geladen mit ${anzahlDatensaetze} Datensätzen.`);
 
 await db.write();
 
@@ -66,10 +66,26 @@ function suche(suchString) {
 }
 
 
+/**
+ * Datensatz für Unterscheidungszeichen anlegen oder ändern (upsert).
+ *
+ * @param {string} uz Unterscheidungszeichen, z.B. "KA"
+ *
+ * @param {string} bedeutung Bedeutung Unterscheidungszeichen, z.B. "Karlsruhe"
+ *
+ * @param {*} kategorie Bundesland oder Kategorie, z.B. "BW" für Baden-Württemberg
+ *                      oder "MIL" für Militär
+ */
+async function neuOderAendern(uz, bedeutung, kategorie) {
+
+    db.data[ uz ] = { bedeutung: bedeutung, kategorie: kategorie };
+    await db.write();
+    logger.info(`Unterscheidungszeichen \"${uz}\" erfolgreich angelegt oder geändert.`);
+}
+
+
 /*
  * Funktionen als Attribute von Objekt `datenbank` exportieren
  */
-export const datenbank = {
+export const datenbank = { suche, neuOderAendern };
 
-    suche
-};

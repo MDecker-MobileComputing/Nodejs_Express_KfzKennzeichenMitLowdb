@@ -12,7 +12,6 @@ import { datenbank } from './datenbank.js';
 const logger = logging.default("uz-service");
 
 
-
 /**
  * Funktion mit Business-Logik zum Suchen von Unterscheidungszeichen.
  *
@@ -48,20 +47,40 @@ function suchen(unterscheidungszeichen) {
 /**
  * Neues Unterscheidungszeichen in Datenbank anlegen.
  *
- * @param {UnterscheidungszeichenIntern} unterscheidungszeichen Infos
+ * @param {UnterscheidungszeichenIntern} uz Interne Repräsentation des neuen
+ *                                          Unterscheidungszeichens. Attribute
+ *                                          müssen schon normalisiert sein.
+ *
+ * @return {boolean} `true`, wenn das Unterscheidungszeichen neu angelegt wurde,
+ *                    sonst `false` (es war dann schon vorhanden)
  */
-function anlegen(unterscheidungszeichen) {
+async function anlegen(uz) {
 
+    const dbErgebnis = datenbank.suche(uz.unterscheidungszeichen);
 
+    if (dbErgebnis === undefined) {
+
+        logger.info(`Unterscheidungszeichen \"${uz.unterscheidungszeichen}\" ist noch nicht vorhanden, ` +
+                    "versuche es anzulegen.");
+
+        await datenbank.neuOderAendern( uz.unterscheidungszeichen,
+                                        uz.bedeutung,
+                                        uz.kategorie );
+
+        logger.info(`Unterscheidungszeichen \"${uz.unterscheidungszeichen}\" erfolgreich angelegt.`);
+
+        return true;
+
+    } else {
+
+        logger.warn(`Unterscheidungszeichen \"${uz.unterscheidungszeichen}\" ist schon vorhanden, ` +
+                    "es kann nicht neu angelegt werden.")
+        return false;
+    }
 }
-
 
 
 /*
  * Funktionen als Attribute von Objekt `uzService` exportieren
  */
-export const uzService = {
-
-    suchen,
-    anlegen
-};
+export const uzService = { suchen, anlegen };
