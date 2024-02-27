@@ -1,3 +1,19 @@
+
+/**
+ * Middleware-Funktionen für die Suche eines Unterscheidungszeichen.
+ * Der Such-String (Pfad-Parameter) wird normalisiert, d.h. in Großbuchstaben
+ * umgewandelt und führende und abschließende Leerzeichen entfernt.
+ */
+export function normalisiereSuchString(req, res, next) {
+
+    const suchstring       = req.params.id;
+    const suchstringNormal = suchstring.toUpperCase().trim();
+    req.params.id          = suchstringNormal;
+
+    next();
+}
+
+
 /**
  * Middleware-Funktion für die Route zum Anlegen eines neuen Unterscheidungszeichens.
  * Die Pflichtattribute aus dem JSON-Body werden (soweit vorhanden) normalisiert.

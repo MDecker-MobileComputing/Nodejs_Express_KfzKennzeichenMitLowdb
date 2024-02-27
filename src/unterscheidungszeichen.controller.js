@@ -2,9 +2,10 @@
  * Diese Controller-Klasse enthält die REST-Endpunkte für die Collection "Unterscheidungszeichen".
  */
 
-import logging          from "logging";
-import { uzService }    from "./unterscheidungszeichen.service.js";
-import { uzPostMiddlewareArray } from "./middleware/unterscheidungszeichen.middleware.js";
+import logging                    from "logging";
+import { uzService }              from "./unterscheidungszeichen.service.js";
+import { uzPostMiddlewareArray }  from "./middleware/unterscheidungszeichen.middleware.js";
+import { normalisiereSuchString } from "./middleware/unterscheidungszeichen.middleware.js";
 
 import { UnterscheidungszeichenIntern } from './model/UnterscheidungszeichenIntern.model.js';
 import { RestErgebnis }                 from './model/RestErgebnis.model.js';
@@ -26,7 +27,7 @@ export default function uzRoutenRegistrieren(app) {
     const uzCollection = "unterscheidungszeichen";
 
     const routeSuche = `${prefixFuerRouten}/${uzCollection}/:id`;
-    app.get( routeSuche, suchen );
+    app.get( routeSuche, normalisiereSuchString, suchen );
     logger.info(`Route registriert: GET  ${routeSuche}`);
 
     const routeNeu = `${prefixFuerRouten}/${uzCollection}`;
@@ -55,8 +56,7 @@ const HTTP_STATUS_CODE_CONFLICT    = 409;
  */
 async function suchen(req, res) {
 
-    const pfadParameter = req.params.id;
-    const suchString    = pfadParameter.toUpperCase().trim();
+    const suchString = req.params.id;
 
     if (suchString.length > 3) {
 
@@ -82,13 +82,12 @@ async function suchen(req, res) {
     } else {
 
         const ergebnisErfolg = new RestErgebnis( true,
-                                                 `Unterscheidungszeichen "${pfadParameter}" konnte aufgelöst werden.`,
+                                                 `Unterscheidungszeichen "${suchString}" konnte aufgelöst werden.`,
                                                  result );
         res.status(HTTP_STATUS_CODE_OK)
            .send(ergebnisErfolg);
     }
 }
-
 
 
 /**
