@@ -33,7 +33,7 @@
                 "version": "V11"
               },
               "host": "localhost:8080",
-              "path": "/unterscheidungszeichen/v1/suchen/HD"
+              "path": "/kfzkennzeichen/v1/unterscheidungszeichen/HD"
             },
             "id": "4d830374-e43b-4920-b09d-330ffd6912d9",
             "name": "Abfrage \"HD\"",
@@ -65,7 +65,7 @@
                 "version": "V11"
               },
               "host": "localhost:8080",
-              "path": "/unterscheidungszeichen/v1/suchen/XYZ"
+              "path": "/kfzkennzeichen/v1/unterscheidungszeichen/XYZ"
             },
             "id": "686c5abe-9eb0-418f-bc51-015039dcd9a1",
             "name": "Abfrage \"XYZ\" (nicht gefunden)",
@@ -97,7 +97,7 @@
                 "version": "V11"
               },
               "host": "localhost:8080",
-              "path": "/unterscheidungszeichen/v1/suchen/ZU-LANG"
+              "path": "/kfzkennzeichen/v1/unterscheidungszeichen/VIELZULANG"
             },
             "id": "a0334024-6a26-42ef-8127-8b6089911efd",
             "name": "Abfrage zu lang",

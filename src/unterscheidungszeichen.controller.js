@@ -1,5 +1,5 @@
 /**
- * Diese Controller-Klasse enthält die REST-Endpunkte.
+ * Diese Controller-Klasse enthält die REST-Endpunkte für die Collection "Unterscheidungszeichen".
  */
 
 import logging     from "logging";
@@ -12,7 +12,7 @@ import { RestErgebnis }                 from './model/RestErgebnis.model.js';
 export const logger = logging.default("uz-controller");
 
 /** Anfangs-String für alle Routen, mit Versionsnummer. */
-const prefixFuerRouten = "/unterscheidungszeichen/v1";
+const prefixFuerRouten = "/kfzkennzeichen/v1";
 
 
 /**
@@ -22,13 +22,13 @@ const prefixFuerRouten = "/unterscheidungszeichen/v1";
  */
 export default function uzRoutenRegistrieren(app) {
 
-    const routeSuche = `${prefixFuerRouten}/suchen/:uz`;
+    const routeSuche = `${prefixFuerRouten}/unterscheidungszeichen/:id`;
     app.get(routeSuche, suchen);
     logger.info(`Route registriert: GET ${routeSuche}`);
 };
 
 // Leeres Unterscheidungszeichen-Objekt für Fehlerfälle
-const unterscheidungszeichenLeer = new UnterscheidungszeichenIntern("", "", "");
+const unterscheidungszeichenLeer = new UnterscheidungszeichenIntern( "", "", "" );
 
 
 const HTTP_STATUS_CODE_OK          = 200;
@@ -39,14 +39,15 @@ const HTTP_STATUS_CODE_BAD_REQUEST = 400;
 /**
  * REST-Endpunkt zur Abfrage von Unterscheidungszeichen.
  *
- * @param {*} req Request-Objekt, zum Auslesen von Pfad-Parameter
+ * @param {*} req Request-Objekt, zum Auslesen von Pfad-Parameter mit
+ *                Unterscheidungszeichen, das abgefragt werden soll.
  *
  * @param {*} res Response-Objekt in das HTTP-Status-Code und Payload
  *                (Body) geschrieben werden.
  */
 async function suchen(req, res) {
 
-    const pfadParameter = req.params.uz;
+    const pfadParameter = req.params.id;
     const suchString    = pfadParameter.toUpperCase().trim();
 
     if (suchString.length > 3) {
