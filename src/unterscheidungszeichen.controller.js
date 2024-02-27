@@ -11,7 +11,7 @@ import { UnterscheidungszeichenIntern } from './model/UnterscheidungszeichenInte
 import { RestErgebnis }                 from './model/RestErgebnis.model.js';
 
 
-export const logger = logging.default("uz-controller");
+const logger = logging.default("uz-controller");
 
 /** Anfangs-String für alle Routen, mit Versionsnummer. */
 const prefixFuerRouten = "/kfzkennzeichen/v1";
@@ -47,6 +47,11 @@ const HTTP_STATUS_CODE_CONFLICT    = 409;
 
 /**
  * REST-Endpunkt zur Abfrage von Unterscheidungszeichen.
+ * <br><br>
+ *
+ * Wegen der vorgeschalteten Middleware-Funktionen können wir davon ausgehen,
+ * dass der Such-String (Pfad-Parameter) normalisiert ist (Großbuchstaben,
+ * keine Leerzeichen am Anfang und Ende).
  *
  * @param {*} req Request-Objekt, zum Auslesen von Pfad-Parameter mit
  *                Unterscheidungszeichen, das abgefragt werden soll.
@@ -92,9 +97,10 @@ async function suchen(req, res) {
 
 /**
  * REST-Endpunkt zum Anlegen eines neuen Unterscheidungszeichens.
- * Wegen der vorgeschalteten Middleware-Funktion `middlewareNeuValidator`
- * können wir davon ausgehen, dass die Pflichtattribute im Request
- * mit zulässigen Werten gefüllten sind.
+ * <br><br>
+ *
+ * Wegen der vorgeschalteten Middleware-Funktionen können wir davon ausgehen,
+ * dass die Pflichtattribute im Request mit zulässigen Werten gefüllten sind.
  *
  * @param {*} req Request-Objekt, zum Auslesen des Bodys (JSON) mit
  *                den drei Attributen des neuen Unterscheidungszeichen:
