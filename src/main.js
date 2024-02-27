@@ -1,7 +1,7 @@
 import express from "express";
 import logging from "logging";
 
-import {middlewareLogger}   from "./allgemein.middleware.js";
+import {middlewareLogger}   from "./middleware/allgemein.middleware.js";
 import uzRoutenRegistrieren from "./unterscheidungszeichen.controller.js";
 
 
