@@ -5,7 +5,7 @@
 
 import logging from "logging";
 
-import { UnterscheidungszeichenIntern } from './UnterscheidungszeichenIntern.model.js';
+import { UnterscheidungszeichenIntern } from './model/UnterscheidungszeichenIntern.model.js';
 import { datenbank } from './datenbank.js';
 
 

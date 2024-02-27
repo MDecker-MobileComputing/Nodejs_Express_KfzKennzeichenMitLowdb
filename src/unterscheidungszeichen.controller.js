@@ -5,8 +5,8 @@
 import logging     from "logging";
 import {uzService} from "./unterscheidungszeichen.service.js";
 
-import { UnterscheidungszeichenIntern } from './UnterscheidungszeichenIntern.model.js';
-import { RestErgebnis }                 from './RestErgebnis.model.js';
+import { UnterscheidungszeichenIntern } from './model/UnterscheidungszeichenIntern.model.js';
+import { RestErgebnis }                 from './model/RestErgebnis.model.js';
 
 
 export const logger = logging.default("uz-controller");

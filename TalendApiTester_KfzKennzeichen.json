@@ -65,6 +65,38 @@
                 "version": "V11"
               },
               "host": "localhost:8080",
+              "path": "/unterscheidungszeichen/v1/suchen/XYZ"
+            },
+            "id": "686c5abe-9eb0-418f-bc51-015039dcd9a1",
+            "name": "Abfrage \"XYZ\" (nicht gefunden)",
+            "headers": []
+          }
+        },
+        {
+          "entity": {
+            "type": "Request",
+            "method": {
+              "link": "http://tools.ietf.org/html/rfc7231#section-4.3.1",
+              "name": "GET"
+            },
+            "body": {
+              "formBody": {
+                "overrideContentType": true,
+                "encoding": "application/x-www-form-urlencoded",
+                "items": []
+              },
+              "bodyType": "Text"
+            },
+            "uri": {
+              "query": {
+                "delimiter": "&",
+                "items": []
+              },
+              "scheme": {
+                "name": "http",
+                "version": "V11"
+              },
+              "host": "localhost:8080",
               "path": "/unterscheidungszeichen/v1/suchen/ZU-LANG"
             },
             "id": "a0334024-6a26-42ef-8127-8b6089911efd",
