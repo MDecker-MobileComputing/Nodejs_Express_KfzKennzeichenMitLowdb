@@ -103,6 +103,46 @@
             "name": "Abfrage zu lang",
             "headers": []
           }
+        },
+        {
+          "entity": {
+            "type": "Request",
+            "method": {
+              "requestBody": true,
+              "link": "http://tools.ietf.org/html/rfc7231#section-4.3.3",
+              "name": "POST"
+            },
+            "body": {
+              "formBody": {
+                "overrideContentType": true,
+                "encoding": "application/x-www-form-urlencoded",
+                "items": []
+              },
+              "bodyType": "Text",
+              "textBody": "{ \"unterscheidungszeichen\": \"M\",\n   \"bedeutung\": \"München\",\n   \"kategorie\": \"BY\" }"
+            },
+            "uri": {
+              "query": {
+                "delimiter": "&",
+                "items": []
+              },
+              "scheme": {
+                "name": "http",
+                "version": "V11"
+              },
+              "host": "localhost:8080",
+              "path": "/kfzkennzeichen/v1/unterscheidungszeichen"
+            },
+            "id": "732fb299-b4f5-4e51-bc39-c56c22f55329",
+            "name": "Neu: \"M\" (München)",
+            "headers": [
+              {
+                "enabled": true,
+                "name": "Content-Type",
+                "value": "application/json"
+              }
+            ]
+          }
         }
       ]
     }
