@@ -61,7 +61,7 @@ const uzInternLeer = new UnterscheidungszeichenIntern( "", "", "" );
  * @param {*} res Response-Objekt in das HTTP-Status-Code und Payload
  *                (Body) geschrieben werden.
  */
-async function suchen(req, res) {
+function suchen(req, res) {
 
     const suchString = req.params.id;
 
