@@ -11,6 +11,7 @@ const app    = express();
 
 // HTTP konfigurieren
 app.use( express.json() );
+app.use( express.static("public") );
 app.use(middlewareLogger);
 uzRoutenRegistrieren(app);
 
