@@ -23,6 +23,10 @@ const anfangsDaten =  {
         "bedeutung": "Baden-Baden",
         "kategorie": "BW"
     },
+    "BW": {
+        "bedeutung": "Wasserstraßen- und Schifffahrtsverwaltung des Bundes",
+        "kategorie": "BEH"
+    },
     "KA": {
         "bedeutung": "Karlsruhe",
         "kategorie": "BW"
