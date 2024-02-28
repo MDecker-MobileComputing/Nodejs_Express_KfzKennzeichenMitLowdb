@@ -4,7 +4,7 @@
 
 import logging                    from "logging";
 
-import { uzService }              from "./unterscheidungszeichen.service.js";
+import { uzService }              from "./uz.service.js";
 import { uzPostMiddlewareArray }  from "./middleware/uz-post.middleware.js";
 import { uzQueryMiddlewareArray } from "./middleware/uz-query.middleware.js";
 
