@@ -15,28 +15,28 @@ const logger = logging.default("uz-service");
 /**
  * Funktion mit Business-Logik zum Suchen von Unterscheidungszeichen.
  *
- * @param {*} unterscheidungszeichen, das zu suchen ist (z.B. "KA")
+ * @param {*} unterscheidungszeichen, das zu suchen ist (z.B. "KA");
+ *            muss schon normalisiert sein.
  *
  * @returns {UnterscheidungszeichenIntern} Ergebnis der Suche oder `null`,
  *          wenn nichts gefunden wurde.
  */
+
 function suchen(unterscheidungszeichen) {
 
-    const uzNormalisiert = unterscheidungszeichen.toUpperCase().trim();
-
-    const dbErgebnis = datenbank.suche(uzNormalisiert);
+    const dbErgebnis = datenbank.suche(unterscheidungszeichen);
     if (dbErgebnis === undefined) {
 
-        logger.info(`Kein Unterscheidungszeichen für \"${uzNormalisiert}\" gefunden.`);
+        logger.info(`Kein Unterscheidungszeichen für \"${unterscheidungszeichen}\" gefunden.`);
         return null;
 
     } else {
 
-        const ergebnis = new UnterscheidungszeichenIntern( uzNormalisiert,
+        const ergebnis = new UnterscheidungszeichenIntern( unterscheidungszeichen,
                                                            dbErgebnis.bedeutung,
                                                            dbErgebnis.kategorie );
 
-        logger.info(`Unterscheidungszeichen \"${uzNormalisiert}\" aufgelöst: ` +
+        logger.info(`Unterscheidungszeichen \"${unterscheidungszeichen}\" aufgelöst: ` +
                     ergebnis.bedeutung + ` (${ergebnis.kategorie})` );
 
         return ergebnis;
