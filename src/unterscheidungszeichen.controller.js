@@ -3,9 +3,10 @@
  */
 
 import logging                    from "logging";
+
 import { uzService }              from "./unterscheidungszeichen.service.js";
-import { uzPostMiddlewareArray }  from "./middleware/unterscheidungszeichen.middleware.js";
-import { uzQueryMiddlewareArray } from "./middleware/unterscheidungszeichen.middleware.js";
+import { uzPostMiddlewareArray }  from "./middleware/uz-post.middleware.js";
+import { uzQueryMiddlewareArray } from "./middleware/uz-query.middleware.js";
 
 import { UnterscheidungszeichenIntern } from './model/UnterscheidungszeichenIntern.model.js';
 import { RestErgebnis }                 from './model/RestErgebnis.model.js';
