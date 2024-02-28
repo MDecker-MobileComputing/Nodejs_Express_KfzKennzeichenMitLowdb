@@ -1,4 +1,13 @@
 
+import { RestErgebnis }                     from '../model/RestErgebnis.model.js';
+import { UnterscheidungszeichenIntern }     from '../model/UnterscheidungszeichenIntern.model.js';
+
+import { HTTP_STATUS_CODE_400_BAD_REQUEST, UZ_REGEXP } from '../konstanten.js';
+
+
+// Leeres Unterscheidungszeichen-Objekt für Fehlerfälle
+const uzInternLeer = new UnterscheidungszeichenIntern( "", "", "" );
+
 
 /**
  * Middleware-Funktion für die Route zum Anlegen eines neuen Unterscheidungszeichens.
@@ -44,7 +53,7 @@ function postValidieren(req, res, next) {
         ergebnisErfolglos = new RestErgebnis( false,
                                               "Attribut 'uz' fehlt im JSON-Body.",
                                               uzInternLeer );
-        res.status(HTTP_STATUS_CODE_BAD_REQUEST)
+        res.status(HTTP_STATUS_CODE_400_BAD_REQUEST)
            .send(ergebnisErfolglos);
         return;
     }
@@ -55,7 +64,7 @@ function postValidieren(req, res, next) {
         ergebnisErfolglos = new RestErgebnis( false,
                                               "Attribut 'bedeutung' fehlt im JSON-Body.",
                                               uzInternLeer );
-        res.status(HTTP_STATUS_CODE_BAD_REQUEST)
+        res.status(HTTP_STATUS_CODE_400_BAD_REQUEST)
            .send(ergebnisErfolglos);
         return;
     }
@@ -66,18 +75,18 @@ function postValidieren(req, res, next) {
         ergebnisErfolglos = new RestErgebnis( false,
                                               "Attribut 'kategorie' fehlt im JSON-Body.",
                                               uzInternLeer );
-        res.status(HTTP_STATUS_CODE_BAD_REQUEST)
+        res.status(HTTP_STATUS_CODE_400_BAD_REQUEST)
            .send(ergebnisErfolglos);
         return;
     }
 
 
-    if (uz.length < 0 || uz.length > 3) {
+    if (UZ_REGEXP.test(uz) === false) {
 
         ergebnisErfolglos = new RestErgebnis( false,
-                                              "Attribut 'uz' muss 1 bis 3 Zeichen lang sein.",
+                                              "Attribut 'uz' muss aus 1 bis 3 Buchstaben bestehen",
                                               uzInternLeer );
-        res.status(HTTP_STATUS_CODE_BAD_REQUEST)
+        res.status(HTTP_STATUS_CODE_400_BAD_REQUEST)
            .send(ergebnisErfolglos);
         return;
     }
@@ -87,7 +96,7 @@ function postValidieren(req, res, next) {
         ergebnisErfolglos = new RestErgebnis( false,
                                               "Attribut 'bedeutung' muss mindestens 3 Zeichen lang sein.",
                                               uzInternLeer );
-        res.status(HTTP_STATUS_CODE_BAD_REQUEST)
+        res.status(HTTP_STATUS_CODE_400_BAD_REQUEST)
            .send(ergebnisErfolglos);
         return;
     }
@@ -97,7 +106,7 @@ function postValidieren(req, res, next) {
         ergebnisErfolglos = new RestErgebnis( false,
                                               "Attribut 'kategorie' muss mindestens 2 Zeichen lang sein",
                                               uzInternLeer );
-        res.status(HTTP_STATUS_CODE_BAD_REQUEST)
+        res.status(HTTP_STATUS_CODE_400_BAD_REQUEST)
            .send(ergebnisErfolglos);
         return;
     }

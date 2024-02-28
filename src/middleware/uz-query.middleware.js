@@ -1,6 +1,8 @@
 import { RestErgebnis }                 from '../model/RestErgebnis.model.js';
 import { UnterscheidungszeichenIntern } from '../model/UnterscheidungszeichenIntern.model.js';
 
+import { HTTP_STATUS_CODE_400_BAD_REQUEST, UZ_REGEXP } from '../konstanten.js';
+
 
 /**
  * Middleware-Funktionen für die Suche eines Unterscheidungszeichen.
@@ -23,18 +25,16 @@ function queryNormalisieren(req, res, next) {
  */
 function queryValidieren(req, res, next) {
 
-    const regex = /^[a-zA-Z]{1,3}$/; // regulärer Ausdruck
-
     const suchString = req.params.id;
 
-    if ( regex.test(suchString) === false ) {
+    if ( UZ_REGEXP.test(suchString) === false ) {
 
         const ergebnisErfolglos = new RestErgebnis( false,
             `Unterscheidungszeichen \"${suchString}\" besteht nicht aus 1 bis 3 Buchstaben.`,
             new UnterscheidungszeichenIntern( "", "", "" )
             );
-        res.send(ergebnisErfolglos)
-           .status(400); // Bad Request
+        res.status(HTTP_STATUS_CODE_400_BAD_REQUEST)
+           .send(ergebnisErfolglos);
 
     } else {
 
@@ -42,4 +42,4 @@ function queryValidieren(req, res, next) {
     }
 }
 
-export const uzQueryMiddlewareArray = [ queryNormalisieren, queryValidieren  ];
+export const uzQueryMiddlewareArray = [ queryNormalisieren, queryValidieren ];

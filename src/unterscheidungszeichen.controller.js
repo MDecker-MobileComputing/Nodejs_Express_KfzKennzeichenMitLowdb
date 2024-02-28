@@ -11,6 +11,9 @@ import { uzQueryMiddlewareArray } from "./middleware/uz-query.middleware.js";
 import { UnterscheidungszeichenIntern } from './model/UnterscheidungszeichenIntern.model.js';
 import { RestErgebnis }                 from './model/RestErgebnis.model.js';
 
+import { HTTP_STATUS_CODE_200_OK,
+         HTTP_STATUS_CODE_404_NOT_FOUND, } from './konstanten.js';
+
 
 const logger = logging.default("uz-controller");
 
@@ -36,14 +39,10 @@ export default function uzRoutenRegistrieren(app) {
     logger.info(`Route registriert: POST ${routeNeu}`);
 };
 
+
 // Leeres Unterscheidungszeichen-Objekt für Fehlerfälle
 const uzInternLeer = new UnterscheidungszeichenIntern( "", "", "" );
 
-
-const HTTP_STATUS_CODE_OK          = 200;
-const HTTP_STATUS_CODE_NOT_FOUND   = 404;
-const HTTP_STATUS_CODE_BAD_REQUEST = 400;
-const HTTP_STATUS_CODE_CONFLICT    = 409;
 
 
 /**
@@ -72,15 +71,15 @@ async function suchen(req, res) {
         const ergebnisErfolglos = new RestErgebnis( false,
                                                     `Unterscheidungszeichen \"${suchString}\" nicht gefunden.`,
                                                     uzInternLeer );
-        res.send(ergebnisErfolglos)
-           .status(HTTP_STATUS_CODE_NOT_FOUND);
+        res.status(HTTP_STATUS_CODE_404_NOT_FOUND)
+           .send(ergebnisErfolglos);
 
     } else {
 
         const ergebnisErfolg = new RestErgebnis( true,
-                                                 `Unterscheidungszeichen "${suchString}" konnte aufgelöst werden.`,
+                                                 `Unterscheidungszeichen "${suchString}" gefunden.`,
                                                  result );
-        res.status(HTTP_STATUS_CODE_OK)
+        res.status(HTTP_STATUS_CODE_200_OK)
            .send(ergebnisErfolg);
     }
 }
@@ -118,7 +117,7 @@ async function neu(req, res) {
         const ergebnisErfolg = new RestErgebnis( true,
                                                  `Unterscheidungszeichen "${uzNormalized}" erfolgreich angelegt.`,
                                                  neuesUz );
-        res.status(HTTP_STATUS_CODE_OK)
+        res.status(HTTP_STATUS_CODE_200_OK)
            .send(ergebnisErfolg);
 
     } else {
