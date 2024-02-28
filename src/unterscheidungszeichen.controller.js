@@ -52,7 +52,8 @@ const HTTP_STATUS_CODE_CONFLICT    = 409;
  *
  * Wegen der vorgeschalteten Middleware-Funktionen können wir davon ausgehen,
  * dass der Such-String (Pfad-Parameter) normalisiert ist (Großbuchstaben,
- * keine Leerzeichen am Anfang und Ende).
+ * keine Leerzeichen am Anfang und Ende) und einen formal zulässigen
+ * Inhalt (ein bis drei Buchstaben) hat.
  *
  * @param {*} req Request-Objekt, zum Auslesen von Pfad-Parameter mit
  *                Unterscheidungszeichen, das abgefragt werden soll.
@@ -63,17 +64,6 @@ const HTTP_STATUS_CODE_CONFLICT    = 409;
 async function suchen(req, res) {
 
     const suchString = req.params.id;
-
-    if (suchString.length > 3) {
-
-        const ergebnisErfolglos = new RestErgebnis( false,
-                                                    `Unterscheidungszeichen \"${suchString}\" zu lang!`,
-                                                    uzInternLeer );
-        res.status(HTTP_STATUS_CODE_BAD_REQUEST)
-           .send(ergebnisErfolglos);
-
-        return;
-    }
 
     const result = uzService.suchen( suchString ); // *** eigentliche Suche ***
 
