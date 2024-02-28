@@ -4,7 +4,7 @@
  * Der Such-String (Pfad-Parameter) wird normalisiert, d.h. in Großbuchstaben
  * umgewandelt und führende und abschließende Leerzeichen entfernt.
  */
-export function normalisiereSuchString(req, res, next) {
+function normalisiereSuchString(req, res, next) {
 
     const suchstring       = req.params.id;
     const suchstringNormal = suchstring.toUpperCase().trim();
@@ -13,12 +13,14 @@ export function normalisiereSuchString(req, res, next) {
     next();
 }
 
+export const uzQueryMiddlewareArray = [ normalisiereSuchString  ];
+
 
 /**
  * Middleware-Funktion für die Route zum Anlegen eines neuen Unterscheidungszeichens.
  * Die Pflichtattribute aus dem JSON-Body werden (soweit vorhanden) normalisiert.
  */
-function neuNormalisierung(req, res, next) {
+function postNormalisieren(req, res, next) {
 
     if (req.body.unterscheidungszeichen) {
 
@@ -48,7 +50,7 @@ function neuNormalisierung(req, res, next) {
  * Vor dieser Middleware-Funktion sollte die Middleware-Funktion `middlewareNeuNormalisierung`
  * aufgerufen werden.
  */
-function neuValidieren(req, res, next) {
+function postValidieren(req, res, next) {
 
     let ergebnisErfolglos = null
 
@@ -120,4 +122,4 @@ function neuValidieren(req, res, next) {
 }
 
 
-export const uzPostMiddlewareArray = [ neuNormalisierung, neuValidieren ];
+export const uzPostMiddlewareArray = [ postNormalisieren, postValidieren ];

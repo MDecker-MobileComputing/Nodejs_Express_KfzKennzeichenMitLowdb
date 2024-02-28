@@ -5,7 +5,7 @@
 import logging                    from "logging";
 import { uzService }              from "./unterscheidungszeichen.service.js";
 import { uzPostMiddlewareArray }  from "./middleware/unterscheidungszeichen.middleware.js";
-import { normalisiereSuchString } from "./middleware/unterscheidungszeichen.middleware.js";
+import { uzQueryMiddlewareArray } from "./middleware/unterscheidungszeichen.middleware.js";
 
 import { UnterscheidungszeichenIntern } from './model/UnterscheidungszeichenIntern.model.js';
 import { RestErgebnis }                 from './model/RestErgebnis.model.js';
@@ -27,7 +27,7 @@ export default function uzRoutenRegistrieren(app) {
     const uzCollection = "unterscheidungszeichen";
 
     const routeSuche = `${prefixFuerRouten}/${uzCollection}/:id`;
-    app.get( routeSuche, normalisiereSuchString, suchen );
+    app.get( routeSuche, uzQueryMiddlewareArray, suchen );
     logger.info(`Route registriert: GET  ${routeSuche}`);
 
     const routeNeu = `${prefixFuerRouten}/${uzCollection}`;
