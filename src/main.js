@@ -21,5 +21,5 @@ logger.info("Express.js (Web-Server) konfiguriert.\n");
 // Server starten
 const PORT_NUMMER = 8080;
 app.listen( PORT_NUMMER,
-    () => { logger.info(`Web-Server lauscht auf Port ${PORT_NUMMER}\n`); }
+    () => { logger.info(`Web-Server lauscht auf Port ${PORT_NUMMER}.\n`); }
   );
