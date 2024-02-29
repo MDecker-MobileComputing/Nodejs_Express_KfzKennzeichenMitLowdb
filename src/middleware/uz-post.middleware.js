@@ -101,10 +101,11 @@ function postValidieren(req, res, next) {
         return;
     }
 
-    if (kategorie.length < 2) {
+    const KAT_REGEXP = /^[a-zA-Z]{2,3}$/;
+    if (KAT_REGEXP.test(kategorie) === false) {
 
         ergebnisErfolglos = new RestErgebnis( false,
-                                              "Attribut 'kategorie' muss mindestens 2 Zeichen lang sein",
+                                              "Attribut 'kategorie' muss aus 2 oder 3 Buchstaben bestehen",
                                               uzInternLeer );
         res.status(HTTP_STATUS_CODE_400_BAD_REQUEST)
            .send(ergebnisErfolglos);
