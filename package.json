@@ -15,6 +15,6 @@
   },
   "scripts": {
     "start": "node src/main.js",
-    "watch": "nodemon src/main.js"
+    "watch": "nodemon --ignore db.json src/main.js"
   }
 }
