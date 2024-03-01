@@ -2,7 +2,7 @@
  * Diese Controller-Klasse enthält die REST-Endpunkte für die Collection "Unterscheidungszeichen".
  */
 
-import logging                    from "logging";
+import logging from "logging";
 
 import { uzService }              from "./uz.service.js";
 import { uzPostMiddlewareArray }  from "./middleware/uz-post.middleware.js";
