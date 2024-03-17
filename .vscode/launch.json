@@ -7,11 +7,23 @@
         {
             "type": "node",
             "request": "launch",
-            "name": "KFZ-Kennzeichen-REST-API starten",
+            "name": "KFZ-Kennzeichen-REST-API starten (DEV-MODE)",
             "skipFiles": [
                 "<node_internals>/**"
             ],
             "program": "${workspaceFolder}/src/main.js"
-        }
+        },
+        {
+            "type": "node",
+            "request": "launch",
+            "name": "KFZ-Kennzeichen-REST-API starten (PROD-MODE)",
+            "skipFiles": [
+                "<node_internals>/**"
+            ],
+            "program": "${workspaceFolder}/src/main.js",
+            "env": {
+                "NODE_ENV": "production"
+            }
+        }        
     ]
 }
