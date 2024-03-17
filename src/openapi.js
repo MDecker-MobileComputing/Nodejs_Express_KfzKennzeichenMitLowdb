@@ -8,7 +8,9 @@ const OPENAPI_DATEI = "./openapi.yaml";
 
 
 /**
- * Swagger-UI für die openapi.yaml-Datei konfigurieren.
+ * Swagger-UI für die openapi.yaml-Datei konfigurieren. Swagger-UI bietet eine
+ * grafische Oberfläche, mit der die API dokumentiert und interaktiv ausprobiert
+ * werden kann.
  *
  * @param {*} app Express.js-Objekt
  */
@@ -20,11 +22,12 @@ export function swaggerUiKonfigurieren(app) {
 
         app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerDocument));
 
-        logger.info("Swagger-UI registriert");
+        logger.info("Swagger-UI registriert.");
 
-    } catch (error) { // YAML-Datei nicht gefunden oder Syntax-Fehler in dieser Datei
+    } catch (error) { // YAML-Datei nicht gefunden oder Syntax-Fehler in dieser Datei,
+                      // Syntax-Fehler können auch mit https://apitools.dev/swagger-parser/online/ gefunden werden
 
-        logger.error(`Fehler beim Laden der OpenAPI-Datei ${OPENAPI_DATEI}, Swagger-UI steht nicht zur Verfügung.`, error);
-        // Syntax-Fehler können auch mit https://apitools.dev/swagger-parser/online/ gefunden werden
+        logger.error(`Fehler beim Laden der OpenAPI-Datei ${OPENAPI_DATEI},` +
+                     "Swagger-UI steht nicht zur Verfügung.", error);
     }
 }
