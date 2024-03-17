@@ -1,6 +1,7 @@
-import logging   from "logging";
-import swaggerUi from 'swagger-ui-express';
-import yaml      from 'yamljs';
+import logging          from "logging";
+import swaggerUi        from "swagger-ui-express";
+import yaml             from "yamljs";
+import openApiValidator from "express-openapi-validator";
 
 const logger = logging.default("openapi");
 
@@ -37,7 +38,6 @@ export function swaggerUiKonfigurieren(app) {
     }
 }
 
-import openApiValidator from "express-openapi-validator";
 
 /**
  * OpenAPI-Validator für Express.js konfigurieren.
