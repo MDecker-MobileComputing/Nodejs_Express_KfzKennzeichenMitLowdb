@@ -10,6 +10,49 @@ const uzInternLeer = new UnterscheidungszeichenIntern( "", "", "" );
 
 
 /**
+ * Middelware-Funktion, um die Datentypen der Pflichtattribute im JSON-Body zu prüfen.
+ * Da ein nicht vorhandenes Attribut `undefined` ist, wird hiermit auch geprüft, ob
+ * die Pflichtattribute im JSON-Body vorhanden sind.
+ */
+function postDatentypenPruefen(req, res, next) {
+
+    let ergebnisErfolglos = null;
+
+    if (typeof req.body.unterscheidungszeichen !== "string") {
+
+        ergebnisErfolglos = new RestErgebnis( false,
+                                              "Pflichtattribut 'unterscheidungszeichen' fehlt oder ist nicht vom Typ 'string'.",
+                                              uzInternLeer );
+        res.status(HTTP_STATUS_CODE_400_BAD_REQUEST)
+           .send(ergebnisErfolglos);
+        return;
+    }
+
+    if (typeof req.body.bedeutung !== "string") {
+
+        ergebnisErfolglos = new RestErgebnis( false,
+                                              "Pflichtattribut 'bedeutung' fehlt oder ist nicht vom Typ 'string'.",
+                                              uzInternLeer );
+        res.status(HTTP_STATUS_CODE_400_BAD_REQUEST)
+           .send(ergebnisErfolglos);
+        return;
+    }
+
+    if (typeof req.body.kategorie !== "string") {
+
+        ergebnisErfolglos = new RestErgebnis( false,
+                                              "Pflichtattribut 'kategorie' fehlt oder ist nicht vom Typ 'string'.",
+                                              uzInternLeer );
+        res.status(HTTP_STATUS_CODE_400_BAD_REQUEST)
+           .send(ergebnisErfolglos);
+        return;
+    }    
+
+    next();
+}
+
+
+/**
  * Middleware-Funktion für die Route zum Anlegen eines neuen Unterscheidungszeichens.
  * Die Pflichtattribute aus dem JSON-Body werden (soweit vorhanden) normalisiert.
  */
@@ -35,52 +78,14 @@ function postNormalisieren(req, res, next) {
 
 
 /**
- * Middleware-Funktion für Route zum Anlegen eines neuen Unterscheidungszeichens.
- * Wenn die Pflichtfelder nicht gefüllt sind, wird der Request mit einer Fehler-Response
- * abgebrochen. Es wird auch überprüft, ob die Mindest-/Max-Länge der einzelnen Pflichtfelder
- * eingehalten wurde.
- *
- * Vor dieser Middleware-Funktion sollte die Middleware-Funktion `middlewareNeuNormalisierung`
- * aufgerufen werden.
+ * Middleware-Funktion überprüft, ob die im JSON-Body enthaltenen Attribute gültige
+ * Werte haben.
  */
 function postValidieren(req, res, next) {
 
-    let ergebnisErfolglos = null
+    let ergebnisErfolglos = null;
 
     const uz = req.body.unterscheidungszeichen;
-    if (uz === undefined)  {
-
-        ergebnisErfolglos = new RestErgebnis( false,
-                                              "Attribut 'uz' fehlt im JSON-Body.",
-                                              uzInternLeer );
-        res.status(HTTP_STATUS_CODE_400_BAD_REQUEST)
-           .send(ergebnisErfolglos);
-        return;
-    }
-
-    const bedeutung = req.body.bedeutung;
-    if (bedeutung === undefined) {
-
-        ergebnisErfolglos = new RestErgebnis( false,
-                                              "Attribut 'bedeutung' fehlt im JSON-Body.",
-                                              uzInternLeer );
-        res.status(HTTP_STATUS_CODE_400_BAD_REQUEST)
-           .send(ergebnisErfolglos);
-        return;
-    }
-
-    const kategorie = req.body.kategorie;
-    if (kategorie === undefined) {
-
-        ergebnisErfolglos = new RestErgebnis( false,
-                                              "Attribut 'kategorie' fehlt im JSON-Body.",
-                                              uzInternLeer );
-        res.status(HTTP_STATUS_CODE_400_BAD_REQUEST)
-           .send(ergebnisErfolglos);
-        return;
-    }
-
-
     if (UZ_REGEXP.test(uz) === false) {
 
         ergebnisErfolglos = new RestErgebnis( false,
@@ -91,6 +96,7 @@ function postValidieren(req, res, next) {
         return;
     }
 
+    const bedeutung = req.body.bedeutung;
     if (bedeutung.length < 3) {
 
         ergebnisErfolglos = new RestErgebnis( false,
@@ -102,6 +108,7 @@ function postValidieren(req, res, next) {
     }
 
     const KAT_REGEXP = /^[a-zA-Z]{2,3}$/;
+    const kategorie = req.body.kategorie;
     if (KAT_REGEXP.test(kategorie) === false) {
 
         ergebnisErfolglos = new RestErgebnis( false,
@@ -116,4 +123,12 @@ function postValidieren(req, res, next) {
 }
 
 
-export const uzPostMiddlewareArray = [ postNormalisieren, postValidieren ];
+/**
+ * Reihenfolge der Middleware-Funktionen ist relevant. So geht z.B. `postNormalisieren`
+ * davon aus, dass die im JSON-Body enthaltenen Attribute den richtigen Datentyp haben.
+ */
+export const uzPostMiddlewareArray = [ 
+                                       postDatentypenPruefen, 
+                                       postNormalisieren, 
+                                       postValidieren 
+                                     ];

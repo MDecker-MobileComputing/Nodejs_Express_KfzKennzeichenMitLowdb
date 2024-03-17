@@ -53,7 +53,7 @@ export function openApiValidatorKonfigurieren(app) {
         app.use(openApiValidator.middleware({
             apiSpec          : OPENAPI_DATEI,
             validateRequests : true, // (default)
-            validateResponses: true // false by default
+            validateResponses: true  // false by default
         }));
 
         logger.info("OpenAPI-Validator registriert.");
