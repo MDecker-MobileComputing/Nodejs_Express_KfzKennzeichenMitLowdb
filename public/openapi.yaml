@@ -57,12 +57,12 @@ components:
               type: boolean
             nachricht:
               type: string
-            daten:
+            unterscheidungszeichen:
               $ref: '#/components/schemas/UnterscheidungszeichenIntern'
           required:
             - erfolg
             - nachricht
-            - daten
+            - unterscheidungszeichen
         UnterscheidungszeichenIntern:
             type: object
             properties:
