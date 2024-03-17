@@ -36,3 +36,28 @@ export function swaggerUiKonfigurieren(app) {
                      "Swagger-UI steht nicht zur Verfügung.", error);
     }
 }
+
+import openApiValidator from "express-openapi-validator";
+
+/**
+ * OpenAPI-Validator für Express.js konfigurieren.
+ *
+ * @param {*} app Express.js-Objekt
+ */
+export function openApiValidatorKonfigurieren(app) {
+
+    try {
+
+        app.use(openApiValidator.middleware({
+            apiSpec          : OPENAPI_DATEI,
+            validateRequests : true, // (default)
+            validateResponses: true // false by default
+        }));
+
+        logger.info("OpenAPI-Validator registriert.");
+
+    } catch (error) {
+
+        logger.error("Fehler beim Laden der OpenAPI-Datei, OpenAPI-Validator steht nicht zur Verfügung.", error);
+    }
+}
