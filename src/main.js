@@ -19,8 +19,16 @@ app.use( express.static("public") );
 app.use( middlewareLogger   );
 app.use( mwCatchIllegalJson );
 
-swaggerUiKonfigurieren( app ); // muss vor openApiValidatorKonfigurieren aufgerufen werden
-openApiValidatorKonfigurieren( app );
+if (process.env.NODE_ENV === "production") {
+
+    logger.info("Produktivbetrieb, OpenAPI-Validator und Swagger-UI sind deshalb deaktiviert.");
+
+} else {
+
+    logger.info("Entwicklungs- oder Testbetrieb, OpenAPI-Validator und Swagger-UI werden deshalb aktiviert.");
+    swaggerUiKonfigurieren( app ); // muss vor openApiValidatorKonfigurieren aufgerufen werden
+    openApiValidatorKonfigurieren( app );    
+}
 
 uzRoutenRegistrieren( app );
 
