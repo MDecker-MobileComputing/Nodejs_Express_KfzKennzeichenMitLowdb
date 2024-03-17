@@ -5,29 +5,29 @@ info:
 paths:
     /kfzkennzeichen/v1/unterscheidungszeichen/{id}:
         get:
-            summary: Retrieve a specific Unterscheidungszeichen
+            summary: Ein bestimmten Unterscheidungszeichen abfragen
             parameters:
                 - name: id
                   in: path
-                  description: Unterscheidungszeichen, das gesucht werden soll, z.B. "KA"
+                  description: Unterscheidungszeichen, das gesucht werden soll, z.B. "KA" für "Karlsruhe"; Groß-/Kleinschreibung wird ignoriert
                   required: true
                   type: string
             responses:
                 '200':
-                    description: Unterscheidungszeichen found
+                    description: Unterscheidungszeichen gefunden
                     content:
                         application/json:
                             schema:
                                 $ref: '#/components/schemas/RestErgebnis'
                 '404':
-                    description: Unterscheidungszeichen not found
+                    description: Unterscheidungszeichen nicht gefunden
                     content:
                         application/json:
                             schema:
                                 $ref: '#/components/schemas/RestErgebnis'
     /kfzkennzeichen/v1/unterscheidungszeichen:
         post:
-            summary: Create a new Unterscheidungszeichen
+            summary: Neues Unterscheidungskennzeichen anlegen
             requestBody:
                 required: true
                 content:
@@ -36,13 +36,13 @@ paths:
                             $ref: '#/components/schemas/UnterscheidungszeichenIntern'
             responses:
                 '200':
-                    description: Unterscheidungszeichen successfully created
+                    description: Unterscheidungszeichen erfolgreich angelegt
                     content:
                         application/json:
                             schema:
                                 $ref: '#/components/schemas/RestErgebnis'
                 '409':
-                    description: Unterscheidungszeichen already exists
+                    description: Unterscheidungszeichen existiert bereits, kann nicht angelegt werden
                     content:
                         application/json:
                             schema:
@@ -67,13 +67,13 @@ components:
             properties:
                 unterscheidungszeichen:
                     type: string
-                    description: The identifier of the Unterscheidungszeichen
+                    description: Unterscheidungszeichen von KFZ-Kennzeichen, z.B. "KA" für Karlsruhe
                 bedeutung:
                     type: string
-                    description: The meaning of the Unterscheidungszeichen
+                    description: Bedeutung des Unterscheidungszeichens
                 kategorie:
                     type: string
-                    description: The category of the Unterscheidungszeichen
+                    description: Kategorie des Unterscheidungszeichens, z.B. Abkürzung Bundesland
             required:
                 - unterscheidungszeichen
                 - bedeutung

@@ -2,6 +2,7 @@ import express from "express";
 import logging from "logging";
 
 import {middlewareLogger}         from "./middleware/allgemein.middleware.js";
+import {mwCatchIllegalJson}       from "./middleware/allgemein.middleware.js";
 import uzRoutenRegistrieren       from "./uz.controller.js";
 import { swaggerUiKonfigurieren } from "./openapi.js";
 
@@ -14,6 +15,7 @@ const app    = express();
 app.use( express.json() );
 app.use( express.static("public") );
 app.use( middlewareLogger );
+app.use( mwCatchIllegalJson );
 uzRoutenRegistrieren( app );
 
 swaggerUiKonfigurieren(app);
