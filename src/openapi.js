@@ -3,7 +3,9 @@ import swaggerUi        from "swagger-ui-express";
 import yaml             from "yamljs";
 import openApiValidator from "express-openapi-validator";
 
+
 const logger = logging.default("openapi");
+
 
 /*
  * Datei mit Beschreibung der Endpunkte der REST-API im OpenAPI-Format.
