@@ -8,7 +8,7 @@ aufgeteilt werden, u.a.:
 
 * Controller für die REST-Endpunkte
 * Services für die Geschäftslogik
-* Separate Datenbanklasse
+* Separate Datenbankdatei
 
 <br>
 
