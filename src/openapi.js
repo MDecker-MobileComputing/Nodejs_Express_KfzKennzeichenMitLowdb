@@ -4,7 +4,12 @@ import yaml      from 'yamljs';
 
 const logger = logging.default("openapi");
 
-const OPENAPI_DATEI = "./openapi.yaml";
+/*
+ * Datei mit Beschreibung der Endpunkte der REST-API im OpenAPI-Format.
+ * Die Datei wird im Unterverzeichnis `public` abgelegt, damit sie über
+ * den Web-Server als statische Datei ausgeliefert werden kann.
+ */
+const OPENAPI_DATEI = "./public/openapi.yaml";
 
 
 /**
