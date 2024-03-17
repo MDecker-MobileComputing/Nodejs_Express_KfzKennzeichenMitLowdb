@@ -8,10 +8,10 @@ paths:
             summary: Retrieve a specific Unterscheidungszeichen
             parameters:
                 - name: id
-                    in: path
-                    required: true
-                    schema:
-                        type: string
+                  in: path
+                  description: Unterscheidungszeichen, das gesucht werden soll, z.B. "KA"
+                  required: true
+                  type: string
             responses:
                 '200':
                     description: Unterscheidungszeichen found

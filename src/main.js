@@ -1,8 +1,9 @@
 import express from "express";
 import logging from "logging";
 
-import {middlewareLogger}   from "./middleware/allgemein.middleware.js";
-import uzRoutenRegistrieren from "./uz.controller.js";
+import {middlewareLogger}         from "./middleware/allgemein.middleware.js";
+import uzRoutenRegistrieren       from "./uz.controller.js";
+import { swaggerUiKonfigurieren } from "./openapi.js";
 
 
 const logger = logging.default("main");
@@ -14,6 +15,8 @@ app.use( express.json() );
 app.use( express.static("public") );
 app.use( middlewareLogger );
 uzRoutenRegistrieren( app );
+
+swaggerUiKonfigurieren(app);
 
 logger.info("Express.js (Web-Server) konfiguriert.\n");
 
