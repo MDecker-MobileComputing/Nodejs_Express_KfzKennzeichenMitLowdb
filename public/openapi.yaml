@@ -11,7 +11,8 @@ paths:
                   in: path
                   description: Unterscheidungszeichen, das gesucht werden soll, z.B. "KA" für "Karlsruhe"; Groß-/Kleinschreibung wird ignoriert
                   required: true
-                  type: string
+                  schema:
+                    type: string
             responses:
                 '200':
                     description: Unterscheidungszeichen gefunden
