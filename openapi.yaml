@@ -1,0 +1,80 @@
+openapi: 3.0.0
+info:
+    title: KFZ Kennzeichen API
+    version: 1.0.0
+paths:
+    /kfzkennzeichen/v1/unterscheidungszeichen/{id}:
+        get:
+            summary: Retrieve a specific Unterscheidungszeichen
+            parameters:
+                - name: id
+                    in: path
+                    required: true
+                    schema:
+                        type: string
+            responses:
+                '200':
+                    description: Unterscheidungszeichen found
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/RestErgebnis'
+                '404':
+                    description: Unterscheidungszeichen not found
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/RestErgebnis'
+    /kfzkennzeichen/v1/unterscheidungszeichen:
+        post:
+            summary: Create a new Unterscheidungszeichen
+            requestBody:
+                required: true
+                content:
+                    application/json:
+                        schema:
+                            $ref: '#/components/schemas/UnterscheidungszeichenIntern'
+            responses:
+                '200':
+                    description: Unterscheidungszeichen successfully created
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/RestErgebnis'
+                '409':
+                    description: Unterscheidungszeichen already exists
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/RestErgebnis'
+components:
+    schemas:
+        RestErgebnis:
+          type: object
+          properties:
+            erfolg:
+              type: boolean
+            nachricht:
+              type: string
+            daten:
+              $ref: '#/components/schemas/UnterscheidungszeichenIntern'
+          required:
+            - erfolg
+            - nachricht
+            - daten
+        UnterscheidungszeichenIntern:
+            type: object
+            properties:
+                unterscheidungszeichen:
+                    type: string
+                    description: The identifier of the Unterscheidungszeichen
+                bedeutung:
+                    type: string
+                    description: The meaning of the Unterscheidungszeichen
+                kategorie:
+                    type: string
+                    description: The category of the Unterscheidungszeichen
+            required:
+                - unterscheidungszeichen
+                - bedeutung
+                - kategorie
