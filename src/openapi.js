@@ -50,11 +50,13 @@ export function openApiValidatorKonfigurieren(app) {
 
     try {
 
-        app.use(openApiValidator.middleware({
+        const validator = openApiValidator.middleware({
             apiSpec          : OPENAPI_DATEI,
             validateRequests : true, // (default)
             validateResponses: true  // false by default
-        }));
+        });
+
+        app.use( validator );
 
         logger.info("OpenAPI-Validator registriert.");
 
