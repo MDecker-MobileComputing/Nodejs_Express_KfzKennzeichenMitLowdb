@@ -3,10 +3,10 @@
  */
 
 import { JSONFilePreset } from 'lowdb/node';
-import logging from "logging";
+import logging            from "logging";
 
 
-const logger = logging.default("datenbank");
+const logger = logging.default( "datenbank" );
 
 // Datenbank initialisieren
 const anfangsDaten =  {
@@ -49,7 +49,7 @@ const dbDateiName = "db.json"; // diese Datei in .gitignore aufnehmen
 const db          = await JSONFilePreset( dbDateiName, anfangsDaten );
 
 const anzahlDatensaetze = Object.keys( db.data ).length;
-logger.info(`Datenbank-Datei \"${dbDateiName}\" geladen mit ${anzahlDatensaetze} Datensätzen.`);
+logger.info( `Datenbank-Datei \"${dbDateiName}\" geladen mit ${anzahlDatensaetze} Datensätzen.` );
 
 await db.write();
 
@@ -64,7 +64,7 @@ await db.write();
  *                   Im Erfolgsfall ein Objekt mit Attributen `bedeutung` und `kategorie`
  *                   zurückgegeben.
  */
-function suche(suchString) {
+function suche( suchString ) {
 
     return db.data[ suchString ];
 }
@@ -80,7 +80,7 @@ function suche(suchString) {
  * @param {*} kategorie Bundesland oder Kategorie, z.B. "BW" für Baden-Württemberg
  *                      oder "MIL" für Militär
  */
-async function neuOderAendern(uz, bedeutung, kategorie) {
+async function neuOderAendern( uz, bedeutung, kategorie ) {
 
     db.data[ uz ] = { bedeutung: bedeutung, kategorie: kategorie };
     await db.write();

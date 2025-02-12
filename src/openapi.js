@@ -4,7 +4,7 @@ import yaml             from "yamljs";
 import openApiValidator from "express-openapi-validator";
 
 
-const logger = logging.default("openapi");
+const logger = logging.default( "openapi" );
 
 
 /*
@@ -22,17 +22,17 @@ const OPENAPI_DATEI = "./public/openapi.yaml";
  *
  * @param {*} app Express.js-Objekt
  */
-export function swaggerUiKonfigurieren(app) {
+export function swaggerUiKonfigurieren( app ) {
 
     try {
 
-        const swaggerDocument = yaml.load(OPENAPI_DATEI);
+        const swaggerDocument = yaml.load( OPENAPI_DATEI );
 
-        app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerDocument));
+        app.use( "/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerDocument) );
 
-        logger.info("Swagger-UI registriert.");
+        logger.info( "Swagger-UI registriert." );
 
-    } catch (error) { // YAML-Datei nicht gefunden oder Syntax-Fehler in dieser Datei,
+    } catch ( error ) { // YAML-Datei nicht gefunden oder Syntax-Fehler in dieser Datei,
                       // Syntax-Fehler können auch mit https://apitools.dev/swagger-parser/online/ gefunden werden
 
         logger.error(`Fehler beim Laden der OpenAPI-Datei ${OPENAPI_DATEI},` +
@@ -46,7 +46,7 @@ export function swaggerUiKonfigurieren(app) {
  *
  * @param {*} app Express.js-Objekt
  */
-export function openApiValidatorKonfigurieren(app) {
+export function openApiValidatorKonfigurieren( app ) {
 
     try {
 
@@ -58,10 +58,11 @@ export function openApiValidatorKonfigurieren(app) {
 
         app.use( validator );
 
-        logger.info("OpenAPI-Validator registriert.");
+        logger.info( "OpenAPI-Validator registriert." );
 
-    } catch (error) {
+    } catch ( error ) {
 
-        logger.error("Fehler beim Laden der OpenAPI-Datei, OpenAPI-Validator steht nicht zur Verfügung.", error);
+        logger.error( "Fehler beim Laden der OpenAPI-Datei, OpenAPI-Validator steht nicht zur Verfügung.",
+                      error );
     }
 }

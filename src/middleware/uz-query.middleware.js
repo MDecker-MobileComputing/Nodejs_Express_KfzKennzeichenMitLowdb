@@ -9,7 +9,7 @@ import { HTTP_STATUS_CODE_400_BAD_REQUEST, UZ_REGEXP } from '../konstanten.js';
  * Der Such-String (Pfad-Parameter) wird normalisiert, d.h. in Großbuchstaben
  * umgewandelt und führende und abschließende Leerzeichen entfernt.
  */
-function queryNormalisieren(req, res, next) {
+function queryNormalisieren( req, res, next ) {
 
     const suchString       = req.params.id;
     const suchStringNormal = suchString.toUpperCase().trim();
@@ -23,7 +23,7 @@ function queryNormalisieren(req, res, next) {
  * Middleware-Funktionen für die Suche eines Unterscheidungszeichen.
  * Es wird überprüft, ob der Such-String aus 1 bis 3 Buchstaben besteht.
  */
-function queryValidieren(req, res, next) {
+function queryValidieren( req, res, next ) {
 
     const suchString = req.params.id;
 
@@ -33,8 +33,8 @@ function queryValidieren(req, res, next) {
             `Unterscheidungszeichen \"${suchString}\" besteht nicht aus 1 bis 3 Buchstaben.`,
             new UnterscheidungszeichenIntern( "", "", "" )
             );
-        res.status(HTTP_STATUS_CODE_400_BAD_REQUEST)
-           .send(ergebnisErfolglos);
+        res.status( HTTP_STATUS_CODE_400_BAD_REQUEST )
+           .send( ergebnisErfolglos );
 
     } else {
 

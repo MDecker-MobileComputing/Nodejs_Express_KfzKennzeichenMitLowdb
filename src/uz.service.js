@@ -6,10 +6,10 @@
 import logging from "logging";
 
 import { UnterscheidungszeichenIntern } from './model/UnterscheidungszeichenIntern.model.js';
-import { datenbank } from './datenbank.js';
+import { datenbank }                    from './datenbank.js';
 
 
-const logger = logging.default("uz-service");
+const logger = logging.default( "uz-service" );
 
 
 /**
@@ -21,13 +21,12 @@ const logger = logging.default("uz-service");
  * @returns {UnterscheidungszeichenIntern} Ergebnis der Suche oder `null`,
  *          wenn nichts gefunden wurde.
  */
+function suchen( unterscheidungszeichen ) {
 
-function suchen(unterscheidungszeichen) {
+    const dbErgebnis = datenbank.suche( unterscheidungszeichen );
+    if ( dbErgebnis === undefined ) {
 
-    const dbErgebnis = datenbank.suche(unterscheidungszeichen);
-    if (dbErgebnis === undefined) {
-
-        logger.info(`Kein Unterscheidungszeichen für \"${unterscheidungszeichen}\" gefunden.`);
+        logger.info( `Kein Unterscheidungszeichen für \"${unterscheidungszeichen}\" gefunden.` );
         return null;
 
     } else {
@@ -36,7 +35,7 @@ function suchen(unterscheidungszeichen) {
                                                            dbErgebnis.bedeutung,
                                                            dbErgebnis.kategorie );
 
-        logger.info(`Unterscheidungszeichen \"${unterscheidungszeichen}\" aufgelöst: ` +
+        logger.info( `Unterscheidungszeichen \"${unterscheidungszeichen}\" aufgelöst: ` +
                     ergebnis.bedeutung + ` (${ergebnis.kategorie})` );
 
         return ergebnis;
@@ -54,27 +53,27 @@ function suchen(unterscheidungszeichen) {
  * @return {boolean} `true`, wenn das Unterscheidungszeichen neu angelegt wurde,
  *                    sonst `false` (es war dann schon vorhanden)
  */
-async function anlegen(uz) {
+async function anlegen( uz ) {
 
-    const dbErgebnis = datenbank.suche(uz.unterscheidungszeichen);
+    const dbErgebnis = datenbank.suche( uz.unterscheidungszeichen );
 
-    if (dbErgebnis === undefined) {
+    if ( dbErgebnis === undefined ) {
 
-        logger.info(`Unterscheidungszeichen \"${uz.unterscheidungszeichen}\" ist noch nicht vorhanden, ` +
-                    "versuche es anzulegen.");
+        logger.info( `Unterscheidungszeichen \"${uz.unterscheidungszeichen}\" ist noch nicht vorhanden, ` +
+                    "versuche es anzulegen." );
 
         await datenbank.neuOderAendern( uz.unterscheidungszeichen,
                                         uz.bedeutung,
                                         uz.kategorie );
 
-        logger.info(`Unterscheidungszeichen \"${uz.unterscheidungszeichen}\" erfolgreich angelegt.`);
+        logger.info( `Unterscheidungszeichen \"${uz.unterscheidungszeichen}\" erfolgreich angelegt.` );
 
         return true;
 
     } else {
 
-        logger.warn(`Unterscheidungszeichen \"${uz.unterscheidungszeichen}\" ist schon vorhanden, ` +
-                    "es kann nicht neu angelegt werden.")
+        logger.warn( `Unterscheidungszeichen \"${uz.unterscheidungszeichen}\" ist schon vorhanden, ` +
+                     "es kann nicht neu angelegt werden." )
         return false;
     }
 }

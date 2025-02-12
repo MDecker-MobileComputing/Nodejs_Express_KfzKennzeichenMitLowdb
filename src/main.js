@@ -8,33 +8,33 @@ import { swaggerUiKonfigurieren } from "./openapi.js";
 import { openApiValidatorKonfigurieren } from "./openapi.js";
 
 
-const logger = logging.default("main");
+const logger = logging.default( "main" );
 const app    = express();
 
 
 // Express.js konfigurieren
 app.use( express.json()           );
-app.use( express.static("public") );
+app.use( express.static( "public" ) );
 
 app.use( middlewareLogger   );
 app.use( mwCatchIllegalJson );
 
-if (process.env.NODE_ENV === "production") {
+if ( process.env.NODE_ENV === "production" ) {
 
     logger.info("Produktivbetrieb, OpenAPI-Validator und Swagger-UI sind deshalb deaktiviert.");
 
 } else {
 
-    logger.info("Entwicklungs- oder Testbetrieb, OpenAPI-Validator und Swagger-UI werden deshalb aktiviert.");
+    logger.info( "Entwicklungs- oder Testbetrieb, OpenAPI-Validator und Swagger-UI werden deshalb aktiviert." );
     swaggerUiKonfigurieren( app ); // muss vor openApiValidatorKonfigurieren aufgerufen werden
-    openApiValidatorKonfigurieren( app );    
+    openApiValidatorKonfigurieren( app );
 }
 
 uzRoutenRegistrieren( app );
 
 
 
-logger.info("Express.js (Web-Server) konfiguriert.\n");
+logger.info( "Express.js (Web-Server) konfiguriert.\n" );
 
 
 // Server starten
