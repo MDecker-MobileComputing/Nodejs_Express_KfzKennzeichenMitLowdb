@@ -124,6 +124,8 @@ function postValidieren( req, res, next ) {
 
 
 /**
+ * Benannte Exports.
+ *
  * Reihenfolge der Middleware-Funktionen ist relevant. So geht z.B. `postNormalisieren`
  * davon aus, dass die im JSON-Body enthaltenen Attribute den richtigen Datentyp haben.
  */

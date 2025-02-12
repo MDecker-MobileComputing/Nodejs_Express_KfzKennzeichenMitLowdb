@@ -22,7 +22,7 @@ const logger = logging.default( "http-anfrage" );
  */
 export function middlewareLogger( req, res, next ) {
 
-    logger.info(`${req.method} ${req.originalUrl}`);
+    logger.info( `${req.method} ${req.originalUrl}` );
 
     next();
 };
@@ -38,7 +38,7 @@ export function mwCatchIllegalJson( error, req, res, next ) {
     if ( error instanceof SyntaxError ) {
 
         logger.error( `Illegal JSON in HTTP-Request: ${error}` );
-        res.status(400).send( "Bad Request: JSON-Body kein gültiges JSON." );
+        res.status( 400 ).send( "Bad Request: JSON-Body kein gültiges JSON." );
 
     } else {
 

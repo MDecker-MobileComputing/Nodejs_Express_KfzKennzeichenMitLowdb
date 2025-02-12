@@ -33,10 +33,10 @@ export function swaggerUiKonfigurieren( app ) {
         logger.info( "Swagger-UI registriert." );
 
     } catch ( error ) { // YAML-Datei nicht gefunden oder Syntax-Fehler in dieser Datei,
-                      // Syntax-Fehler können auch mit https://apitools.dev/swagger-parser/online/ gefunden werden
+                        // Syntax-Fehler können auch mit https://apitools.dev/swagger-parser/online/ gefunden werden
 
-        logger.error(`Fehler beim Laden der OpenAPI-Datei ${OPENAPI_DATEI},` +
-                     "Swagger-UI steht nicht zur Verfügung.", error);
+        logger.error( `Fehler beim Laden der OpenAPI-Datei ${OPENAPI_DATEI},` +
+                      "Swagger-UI steht nicht zur Verfügung.", error );
     }
 }
 

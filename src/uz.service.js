@@ -81,5 +81,6 @@ async function anlegen( uz ) {
 
 /*
  * Funktionen als Attribute von Objekt `uzService` exportieren
+ * (benannte Exports).
  */
 export const uzService = { suchen, anlegen };

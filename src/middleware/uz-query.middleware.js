@@ -30,8 +30,8 @@ function queryValidieren( req, res, next ) {
     if ( UZ_REGEXP.test(suchString) === false ) {
 
         const ergebnisErfolglos = new RestErgebnis( false,
-            `Unterscheidungszeichen \"${suchString}\" besteht nicht aus 1 bis 3 Buchstaben.`,
-            new UnterscheidungszeichenIntern( "", "", "" )
+                `Unterscheidungszeichen \"${suchString}\" besteht nicht aus 1 bis 3 Buchstaben.`,
+                new UnterscheidungszeichenIntern( "", "", "" )
             );
         res.status( HTTP_STATUS_CODE_400_BAD_REQUEST )
            .send( ergebnisErfolglos );
@@ -42,4 +42,5 @@ function queryValidieren( req, res, next ) {
     }
 }
 
+// benannte Exports
 export const uzQueryMiddlewareArray = [ queryNormalisieren, queryValidieren ];
