@@ -1,11 +1,14 @@
 import express from "express";
 import logging from "logging";
 
-import {middlewareLogger}         from "./middleware/allgemein.middleware.js";
-import {mwCatchIllegalJson}       from "./middleware/allgemein.middleware.js";
-import uzRoutenRegistrieren       from "./uz.controller.js";
-import { swaggerUiKonfigurieren } from "./openapi.js";
+import { middlewareLogger }              from "./middleware/allgemein.middleware.js";
+import { mwCatchIllegalJson }            from "./middleware/allgemein.middleware.js";
+import { swaggerUiKonfigurieren }        from "./openapi.js";
 import { openApiValidatorKonfigurieren } from "./openapi.js";
+import uzRoutenRegistrieren              from "./uz.controller.js";
+// uzRoutenRegistrieren muss nicht in Schweifenklammern gesetzt werden, weil es sich
+// um einen Default-Export handelt; die anderen Imports beziehen sich auf benannte Exports,
+// deshalb müssen sie in geschweifte Klammern gesetzt werden.
 
 
 const logger = logging.default( "main" );
@@ -21,7 +24,7 @@ app.use( mwCatchIllegalJson );
 
 if ( process.env.NODE_ENV === "production" ) {
 
-    logger.info("Produktivbetrieb, OpenAPI-Validator und Swagger-UI sind deshalb deaktiviert.");
+    logger.info( "Produktivbetrieb, OpenAPI-Validator und Swagger-UI sind deshalb deaktiviert." );
 
 } else {
 
@@ -31,7 +34,6 @@ if ( process.env.NODE_ENV === "production" ) {
 }
 
 uzRoutenRegistrieren( app );
-
 
 
 logger.info( "Express.js (Web-Server) konfiguriert.\n" );
