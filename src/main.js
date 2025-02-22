@@ -22,7 +22,7 @@ uzRoutenRegistrieren( app );
 
 swaggerUiKonfigurieren(app);
 
-logger.info("Express.js (Web-Server) konfiguriert.\n");
+logger.info( "Express.js (Web-Server) konfiguriert.\n" );
 
 
 // Server starten
