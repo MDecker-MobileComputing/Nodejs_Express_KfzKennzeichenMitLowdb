@@ -21,6 +21,12 @@ paths:
                         application/json:
                             schema:
                                 $ref: '#/components/schemas/RestErgebnis'
+                '400':
+                    description: Ungültige Anfrageparameter (mehr als drei Buchstaben oder andere Zeichen als Buchstaben)
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/RestErgebnis'
                 '404':
                     description: Unterscheidungszeichen nicht gefunden
                     content:
