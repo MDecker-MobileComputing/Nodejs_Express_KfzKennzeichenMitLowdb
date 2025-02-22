@@ -27,12 +27,13 @@ function queryValidieren( req, res, next ) {
 
     const suchString = req.params.id;
 
-    if ( UZ_REGEXP.test(suchString) === false ) {
+    if ( UZ_REGEXP.test( suchString ) === false ) {
 
-        const ergebnisErfolglos = new RestErgebnis( false,
-                `Unterscheidungszeichen \"${suchString}\" besteht nicht aus 1 bis 3 Buchstaben.`,
-                new UnterscheidungszeichenIntern( "", "", "" )
-            );
+        const ergebnisErfolglos = 
+                    new RestErgebnis( false,
+                                      `Unterscheidungszeichen \"${suchString}\" besteht nicht aus 1 bis 3 Buchstaben.`,
+                                      new UnterscheidungszeichenIntern( "", "", "" )
+                                    );
         res.status( HTTP_STATUS_CODE_400_BAD_REQUEST )
            .send( ergebnisErfolglos );
 

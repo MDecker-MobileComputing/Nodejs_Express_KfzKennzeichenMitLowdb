@@ -36,7 +36,7 @@ function suchen( unterscheidungszeichen ) {
                                                            dbErgebnis.kategorie );
 
         logger.info( `Unterscheidungszeichen \"${unterscheidungszeichen}\" aufgelöst: ` +
-                    ergebnis.bedeutung + ` (${ergebnis.kategorie})` );
+                     ergebnis.bedeutung + ` (${ergebnis.kategorie})` );
 
         return ergebnis;
     }

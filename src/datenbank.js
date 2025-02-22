@@ -84,7 +84,7 @@ async function neuOderAendern( uz, bedeutung, kategorie ) {
 
     db.data[ uz ] = { bedeutung: bedeutung, kategorie: kategorie };
     await db.write();
-    logger.info(`Unterscheidungszeichen \"${uz}\" erfolgreich angelegt oder geändert.`);
+    logger.info( `Unterscheidungszeichen \"${uz}\" erfolgreich angelegt oder geändert.` );
 }
 
 

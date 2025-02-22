@@ -28,15 +28,18 @@ export function swaggerUiKonfigurieren( app ) {
 
         const swaggerDocument = yaml.load( OPENAPI_DATEI );
 
-        app.use( "/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerDocument) );
+        app.use( "/api-docs", 
+                 swaggerUi.serve, 
+                 swaggerUi.setup( swaggerDocument ) 
+               );
 
         logger.info( "Swagger-UI registriert." );
 
-    } catch ( error ) { // YAML-Datei nicht gefunden oder Syntax-Fehler in dieser Datei,
-                        // Syntax-Fehler können auch mit https://apitools.dev/swagger-parser/online/ gefunden werden
+    } catch ( fehler ) { // YAML-Datei nicht gefunden oder Syntax-Fehler in dieser Datei,
+                         // Syntax-Fehler können auch mit https://apitools.dev/swagger-parser/online/ gefunden werden
 
         logger.error( `Fehler beim Laden der OpenAPI-Datei ${OPENAPI_DATEI},` +
-                      "Swagger-UI steht nicht zur Verfügung.", error );
+                      "Swagger-UI steht nicht zur Verfügung.", fehler );
     }
 }
 
@@ -60,9 +63,9 @@ export function openApiValidatorKonfigurieren( app ) {
 
         logger.info( "OpenAPI-Validator registriert." );
 
-    } catch ( error ) {
+    } catch ( fehler ) {
 
         logger.error( "Fehler beim Laden der OpenAPI-Datei, OpenAPI-Validator steht nicht zur Verfügung.",
-                      error );
+                      fehler );
     }
 }

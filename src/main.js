@@ -16,7 +16,7 @@ const app    = express();
 
 
 // Express.js konfigurieren
-app.use( express.json()           );
+app.use( express.json()             );
 app.use( express.static( "public" ) );
 
 app.use( middlewareLogger   );
