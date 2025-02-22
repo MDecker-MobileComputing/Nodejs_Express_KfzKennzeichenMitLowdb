@@ -16,7 +16,7 @@ import { HTTP_STATUS_CODE_200_OK,
          HTTP_STATUS_CODE_409_CONFLICT  } from './konstanten.js';
 
 
-const logger = logging.default("uz-controller");
+const logger = logging.default( "uz-controller" );
 
 /** Anfangs-String für alle Routen, mit Versionsnummer. */
 const prefixFuerRouten = "/kfzkennzeichen/v1";
@@ -27,17 +27,17 @@ const prefixFuerRouten = "/kfzkennzeichen/v1";
  *
  * @param {*} Express-App-Objekt
  */
-export default function uzRoutenRegistrieren(app) {
+export default function uzRoutenRegistrieren( app ) {
 
     const uzCollection = "unterscheidungszeichen";
 
     const routeSuche = `${prefixFuerRouten}/${uzCollection}/:id`;
     app.get( routeSuche, uzQueryMiddlewareArray, suchen );
-    logger.info(`Route registriert: GET  ${routeSuche}`);
+    logger.info( `Route registriert: GET  ${routeSuche}` );
 
     const routeNeu = `${prefixFuerRouten}/${uzCollection}`;
     app.post( routeNeu, uzPostMiddlewareArray, neu );
-    logger.info(`Route registriert: POST ${routeNeu}`);
+    logger.info( `Route registriert: POST ${routeNeu}` );
 };
 
 
@@ -61,7 +61,7 @@ const uzInternLeer = new UnterscheidungszeichenIntern( "", "", "" );
  * @param {*} res Response-Objekt in das HTTP-Status-Code und Payload
  *                (Body) geschrieben werden.
  */
-function suchen(req, res) {
+function suchen( req, res ) {
 
     const suchString = req.params.id;
 
@@ -72,16 +72,16 @@ function suchen(req, res) {
         const ergebnisErfolglos = new RestErgebnis( false,
                                                     `Unterscheidungszeichen \"${suchString}\" nicht gefunden.`,
                                                     uzInternLeer );
-        res.status(HTTP_STATUS_CODE_404_NOT_FOUND)
-           .send(ergebnisErfolglos);
+        res.status( HTTP_STATUS_CODE_404_NOT_FOUND )
+           .send( ergebnisErfolglos );
 
     } else {
 
         const ergebnisErfolg = new RestErgebnis( true,
                                                  `Unterscheidungszeichen "${suchString}" gefunden.`,
                                                  result );
-        res.status(HTTP_STATUS_CODE_200_OK)
-           .send(ergebnisErfolg);
+        res.status( HTTP_STATUS_CODE_200_OK )
+           .send( ergebnisErfolg );
     }
 }
 
@@ -101,7 +101,7 @@ function suchen(req, res) {
  *
  * @param {*} res Response-Objekt in das HTTP-Status-Code geschrieben wird.
  */
-async function neu(req, res) {
+async function neu( req, res ) {
 
     const uzNormalized        = req.body.unterscheidungszeichen;
     const bedeutungNormalized = req.body.bedeutung;
@@ -111,22 +111,22 @@ async function neu(req, res) {
                                                       bedeutungNormalized,
                                                       kategorieNormalized );
 
-    const warErfolgreich = await uzService.anlegen(neuesUz); // *** eigentliches Erzeugen ***
+    const warErfolgreich = await uzService.anlegen( neuesUz ); // *** eigentliches Erzeugen ***
 
-    if (warErfolgreich) {
+    if ( warErfolgreich ) {
 
         const ergebnisErfolg = new RestErgebnis( true,
                                                  `Unterscheidungszeichen "${uzNormalized}" erfolgreich angelegt.`,
                                                  neuesUz );
-        res.status(HTTP_STATUS_CODE_200_OK)
-           .send(ergebnisErfolg);
+        res.status( HTTP_STATUS_CODE_200_OK )
+           .send( ergebnisErfolg );
 
     } else {
 
         const ergebnisErfolglos = new RestErgebnis( false,
                                                     `Unterscheidungszeichen "${uzNormalized}" war schon vorhanden.`,
                                                     uzInternLeer );
-        res.status(HTTP_STATUS_CODE_409_CONFLICT)
-           .send(ergebnisErfolglos);
+        res.status( HTTP_STATUS_CODE_409_CONFLICT )
+           .send( ergebnisErfolglos );
     }
 }

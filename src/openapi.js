@@ -19,20 +19,23 @@ const OPENAPI_DATEI = "./public/openapi.yaml";
  *
  * @param {*} app Express.js-Objekt
  */
-export function swaggerUiKonfigurieren(app) {
+export function swaggerUiKonfigurieren( app ) {
 
     try {
 
-        const swaggerDocument = yaml.load(OPENAPI_DATEI);
+        const swaggerDocument = yaml.load( OPENAPI_DATEI );
 
-        app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerDocument));
+        app.use( "/api-docs", 
+                 swaggerUi.serve, 
+                 swaggerUi.setup( swaggerDocument ) 
+              );
 
-        logger.info("Swagger-UI registriert.");
+        logger.info( "Swagger-UI registriert." );
 
-    } catch (error) { // YAML-Datei nicht gefunden oder Syntax-Fehler in dieser Datei,
+    } catch ( fehler ) { // YAML-Datei nicht gefunden oder Syntax-Fehler in dieser Datei,
                       // Syntax-Fehler können auch mit https://apitools.dev/swagger-parser/online/ gefunden werden
 
-        logger.error(`Fehler beim Laden der OpenAPI-Datei ${OPENAPI_DATEI},` +
-                     "Swagger-UI steht nicht zur Verfügung.", error);
+        logger.error( `Fehler beim Laden der OpenAPI-Datei ${OPENAPI_DATEI},` +
+                      "Swagger-UI steht nicht zur Verfügung.", fehler );
     }
 }

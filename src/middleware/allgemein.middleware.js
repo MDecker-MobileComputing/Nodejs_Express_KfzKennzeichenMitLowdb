@@ -1,6 +1,6 @@
 import logging from "logging";
 
-const logger = logging.default("http-anfrage");
+const logger = logging.default( "http-anfrage" );
 
 
 /**
@@ -20,7 +20,7 @@ const logger = logging.default("http-anfrage");
  *
  * @param {*} next Funktion, um nächste Middleware-Funktion aufzurufen
  */
-export function middlewareLogger(req, res, next) {
+export function middlewareLogger( req, res, next ) {
 
     logger.info(`${req.method} ${req.originalUrl}`);
 
@@ -33,12 +33,12 @@ export function middlewareLogger(req, res, next) {
  * `express.json()` geworfen werden, wenn der Body eines HTTP-Requests
  * (z.B. HTTP-POST) kein gültiges JSON enthält.
  */
-export function mwCatchIllegalJson(err, req, res, next) {
+export function mwCatchIllegalJson( err, req, res, next ) {
 
-    if (err instanceof SyntaxError) {
+    if ( err instanceof SyntaxError ) {
 
-        logger.error("Illegal JSON in HTTP-Request: " + err );
-        res.status(400).send("Bad Request: JSON-Body kein gültiges JSON.");
+        logger.error( "Illegal JSON in HTTP-Request: " + err );
+        res.status(400).send( "Bad Request: JSON-Body kein gültiges JSON." );
 
     } else {
 

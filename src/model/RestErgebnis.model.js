@@ -13,7 +13,7 @@ export class RestErgebnis {
      *
      * @param {UnterscheidungszeichenIntern} unterscheidungszeichen
      */
-    constructor(erfolg, nachricht, unterscheidungszeichen) {
+    constructor( erfolg, nachricht, unterscheidungszeichen ) {
 
         this.erfolg                 = erfolg;
         this.nachricht              = nachricht;

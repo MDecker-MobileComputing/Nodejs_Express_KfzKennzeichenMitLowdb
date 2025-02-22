@@ -13,19 +13,19 @@ const uzInternLeer = new UnterscheidungszeichenIntern( "", "", "" );
  * Middleware-Funktion für die Route zum Anlegen eines neuen Unterscheidungszeichens.
  * Die Pflichtattribute aus dem JSON-Body werden (soweit vorhanden) normalisiert.
  */
-function postNormalisieren(req, res, next) {
+function postNormalisieren( req, res, next ) {
 
-    if (req.body.unterscheidungszeichen) {
+    if ( req.body.unterscheidungszeichen ) {
 
         req.body.unterscheidungszeichen = req.body.unterscheidungszeichen.trim().toUpperCase();
     }
 
-    if (req.body.bedeutung) {
+    if ( req.body.bedeutung ) {
 
         req.body.bedeutung = req.body.bedeutung.trim();
     }
 
-    if (req.body.kategorie) {
+    if ( req.body.kategorie ) {
 
         req.body.kategorie = req.body.kategorie.trim().toUpperCase();
     }
@@ -43,18 +43,18 @@ function postNormalisieren(req, res, next) {
  * Vor dieser Middleware-Funktion sollte die Middleware-Funktion `middlewareNeuNormalisierung`
  * aufgerufen werden.
  */
-function postValidieren(req, res, next) {
+function postValidieren( req, res, next ) {
 
     let ergebnisErfolglos = null
 
     const uz = req.body.unterscheidungszeichen;
-    if (uz === undefined)  {
+    if ( uz === undefined )  {
 
         ergebnisErfolglos = new RestErgebnis( false,
                                               "Attribut 'uz' fehlt im JSON-Body.",
                                               uzInternLeer );
-        res.status(HTTP_STATUS_CODE_400_BAD_REQUEST)
-           .send(ergebnisErfolglos);
+        res.status( HTTP_STATUS_CODE_400_BAD_REQUEST )
+           .send( ergebnisErfolglos );
         return;
     }
 
@@ -64,30 +64,30 @@ function postValidieren(req, res, next) {
         ergebnisErfolglos = new RestErgebnis( false,
                                               "Attribut 'bedeutung' fehlt im JSON-Body.",
                                               uzInternLeer );
-        res.status(HTTP_STATUS_CODE_400_BAD_REQUEST)
-           .send(ergebnisErfolglos);
+        res.status( HTTP_STATUS_CODE_400_BAD_REQUEST )
+           .send( ergebnisErfolglos );
         return;
     }
 
     const kategorie = req.body.kategorie;
-    if (kategorie === undefined) {
+    if ( kategorie === undefined ) {
 
         ergebnisErfolglos = new RestErgebnis( false,
                                               "Attribut 'kategorie' fehlt im JSON-Body.",
                                               uzInternLeer );
-        res.status(HTTP_STATUS_CODE_400_BAD_REQUEST)
-           .send(ergebnisErfolglos);
+        res.status( HTTP_STATUS_CODE_400_BAD_REQUEST )
+           .send( ergebnisErfolglos );
         return;
     }
 
 
-    if (UZ_REGEXP.test(uz) === false) {
+    if ( UZ_REGEXP.test(uz) === false ) {
 
         ergebnisErfolglos = new RestErgebnis( false,
                                               "Attribut 'uz' muss aus 1 bis 3 Buchstaben bestehen",
                                               uzInternLeer );
-        res.status(HTTP_STATUS_CODE_400_BAD_REQUEST)
-           .send(ergebnisErfolglos);
+        res.status( HTTP_STATUS_CODE_400_BAD_REQUEST )
+           .send( ergebnisErfolglos );
         return;
     }
 
@@ -96,19 +96,19 @@ function postValidieren(req, res, next) {
         ergebnisErfolglos = new RestErgebnis( false,
                                               "Attribut 'bedeutung' muss mindestens 3 Zeichen lang sein.",
                                               uzInternLeer );
-        res.status(HTTP_STATUS_CODE_400_BAD_REQUEST)
-           .send(ergebnisErfolglos);
+        res.status( HTTP_STATUS_CODE_400_BAD_REQUEST )
+           .send( ergebnisErfolglos );
         return;
     }
 
     const KAT_REGEXP = /^[a-zA-Z]{2,3}$/;
-    if (KAT_REGEXP.test(kategorie) === false) {
+    if ( KAT_REGEXP.test(kategorie) === false ) {
 
         ergebnisErfolglos = new RestErgebnis( false,
                                               "Attribut 'kategorie' muss aus 2 oder 3 Buchstaben bestehen",
                                               uzInternLeer );
-        res.status(HTTP_STATUS_CODE_400_BAD_REQUEST)
-           .send(ergebnisErfolglos);
+        res.status( HTTP_STATUS_CODE_400_BAD_REQUEST )
+           .send( ergebnisErfolglos );
         return;
     }
 

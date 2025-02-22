@@ -15,7 +15,7 @@ export class UnterscheidungszeichenIntern {
      *
      * @param {*} kategorie Bundesland oder Organisation/Behörde
      */
-    constructor(unterscheidungszeichen, bedeutung, kategorie) {
+    constructor( unterscheidungszeichen, bedeutung, kategorie ) {
 
         this.unterscheidungszeichen = unterscheidungszeichen;
         this.bedeutung              = bedeutung;

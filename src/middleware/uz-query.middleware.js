@@ -33,8 +33,8 @@ function queryValidieren(req, res, next) {
             `Unterscheidungszeichen \"${suchString}\" besteht nicht aus 1 bis 3 Buchstaben.`,
             new UnterscheidungszeichenIntern( "", "", "" )
             );
-        res.status(HTTP_STATUS_CODE_400_BAD_REQUEST)
-           .send(ergebnisErfolglos);
+        res.status( HTTP_STATUS_CODE_400_BAD_REQUEST )
+           .send( ergebnisErfolglos );
 
     } else {
 
