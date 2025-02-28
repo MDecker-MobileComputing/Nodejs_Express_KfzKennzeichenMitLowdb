@@ -32,11 +32,11 @@ export default function uzRoutenRegistrieren( app ) {
     const uzCollection = "unterscheidungszeichen";
 
     const routeSuche = `${prefixFuerRouten}/${uzCollection}/:id`;
-    app.get( routeSuche, uzQueryMiddlewareArray, suchen );
+    app.get( routeSuche, uzQueryMiddlewareArray, getRessource );
     logger.info( `Route registriert: GET  ${routeSuche}` );
 
     const routeNeu = `${prefixFuerRouten}/${uzCollection}`;
-    app.post( routeNeu, uzPostMiddlewareArray, neu );
+    app.post( routeNeu, uzPostMiddlewareArray, getPost );
     logger.info( `Route registriert: POST ${routeNeu}` );
 };
 
@@ -61,7 +61,7 @@ const uzInternLeer = new UnterscheidungszeichenIntern( "", "", "" );
  * @param {*} res Response-Objekt in das HTTP-Status-Code und Payload
  *                (Body) geschrieben werden.
  */
-function suchen( req, res ) {
+function getRessource( req, res ) {
 
     const suchString = req.params.id;
 
@@ -101,7 +101,7 @@ function suchen( req, res ) {
  *
  * @param {*} res Response-Objekt in das HTTP-Status-Code geschrieben wird.
  */
-async function neu( req, res ) {
+async function getPost( req, res ) {
 
     const uzNormalized        = req.body.unterscheidungszeichen;
     const bedeutungNormalized = req.body.bedeutung;
