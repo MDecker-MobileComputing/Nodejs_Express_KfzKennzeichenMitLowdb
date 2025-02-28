@@ -36,7 +36,7 @@ export default function uzRoutenRegistrieren( app ) {
     logger.info( `Route registriert: GET  ${routeSuche}` );
 
     const routeNeu = `${prefixFuerRouten}/${uzCollection}`;
-    app.post( routeNeu, uzPostMiddlewareArray, getPost );
+    app.post( routeNeu, uzPostMiddlewareArray, postCollection );
     logger.info( `Route registriert: POST ${routeNeu}` );
 };
 
@@ -101,7 +101,7 @@ function getRessource( req, res ) {
  *
  * @param {*} res Response-Objekt in das HTTP-Status-Code geschrieben wird.
  */
-async function getPost( req, res ) {
+async function postCollection( req, res ) {
 
     const uzNormalized        = req.body.unterscheidungszeichen;
     const bedeutungNormalized = req.body.bedeutung;
