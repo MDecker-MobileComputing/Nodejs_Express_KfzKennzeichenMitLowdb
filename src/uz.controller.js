@@ -31,13 +31,13 @@ export default function uzRoutenRegistrieren( app ) {
 
     const uzCollection = "unterscheidungszeichen";
 
-    const routeSuche = `${prefixFuerRouten}/${uzCollection}/:id`;
-    app.get( routeSuche, uzQueryMiddlewareArray, getRessource );
-    logger.info( `Route registriert: GET  ${routeSuche}` );
+    const routeGetRessource = `${prefixFuerRouten}/${uzCollection}/:id`;
+    app.get( routeGetRessource, uzQueryMiddlewareArray, getRessource );
+    logger.info( `Route registriert: GET  ${routeGetRessource}` );
 
-    const routeNeu = `${prefixFuerRouten}/${uzCollection}`;
-    app.post( routeNeu, uzPostMiddlewareArray, postCollection );
-    logger.info( `Route registriert: POST ${routeNeu}` );
+    const routePostCollection = `${prefixFuerRouten}/${uzCollection}`;
+    app.post( routePostCollection, uzPostMiddlewareArray, postCollection );
+    logger.info( `Route registriert: POST ${routePostCollection}` );
 };
 
 
