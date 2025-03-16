@@ -12,6 +12,13 @@ aufgeteilt werden, u.a.:
 
 <br>
 
+Die REST-API im vorliegenden Repo wird von 
+[dieser REST-API](https://github.com/MDecker-MobileComputing/Nodejs_Express_KfzKennzeicherChecker)
+aufgerufen.
+
+<br>
+
+----
 
 ## License ##
 
