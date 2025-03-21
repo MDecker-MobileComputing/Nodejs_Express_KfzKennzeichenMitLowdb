@@ -1,6 +1,6 @@
 import logging   from "logging";
-import swaggerUi from 'swagger-ui-express';
-import yaml      from 'yamljs';
+import swaggerUi from "swagger-ui-express";
+import yaml      from "yamljs";
 
 const logger = logging.default("openapi");
 
