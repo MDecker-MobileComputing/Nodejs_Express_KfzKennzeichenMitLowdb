@@ -10,7 +10,7 @@ jobs:
     - name: Node.js einrichten
       uses: actions/setup-node@v4
       with:
-        node-version: '20'
+        node-version: '24'
     - name: Alle JavaScript-Dateien mit >node --check< prüfen
       run: |
         zaehler=0

@@ -2,7 +2,7 @@
  * Diese Controller-Klasse enthält die REST-Endpunkte für die Collection "Unterscheidungszeichen".
  */
 
-import logging from "logging";
+import createLogger from "logging";
 
 import { uzService }              from "./uz.service.js";
 import { uzPostMiddlewareArray }  from "./middleware/uz-post.middleware.js";
@@ -16,7 +16,7 @@ import { HTTP_STATUS_CODE_200_OK,
          HTTP_STATUS_CODE_409_CONFLICT  } from './konstanten.js';
 
 
-const logger = logging.default( "uz-controller" );
+const logger = createLogger( "uz-controller" );
 
 /** Anfangs-String für alle Routen, mit Versionsnummer. */
 const prefixFuerRouten = "/kfzkennzeichen/v1";

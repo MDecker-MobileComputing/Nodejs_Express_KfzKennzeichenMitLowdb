@@ -3,13 +3,13 @@
  */
 
 
-import logging from "logging";
+import createLogger from "logging";
 
 import { UnterscheidungszeichenIntern } from './model/UnterscheidungszeichenIntern.model.js';
 import { datenbank } from './datenbank.js';
 
 
-const logger = logging.default( "uz-service" );
+const logger = createLogger( "uz-service" );
 
 
 /**

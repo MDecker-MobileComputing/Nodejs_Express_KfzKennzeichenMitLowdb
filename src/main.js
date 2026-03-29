@@ -1,5 +1,5 @@
-import express from "express";
-import logging from "logging";
+import express      from "express";
+import createLogger from "logging";
 
 import { middlewareLogger }       from "./middleware/allgemein.middleware.js";
 import { mwCatchIllegalJson }     from "./middleware/allgemein.middleware.js";
@@ -7,7 +7,7 @@ import uzRoutenRegistrieren       from "./uz.controller.js";
 import { swaggerUiKonfigurieren } from "./openapi.js";
 
 
-const logger = logging.default( "main" );
+const logger = createLogger( "main" );
 const app    = express();
 
 
